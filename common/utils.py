@@ -2,7 +2,7 @@ from common.params import args
 import zipfile
 from functools import wraps
 import time
-from glob import glob, iglob
+from glob import glob
 from tqdm.auto import tqdm
 import orjson
 import os
@@ -19,18 +19,14 @@ def timeit(func):
     return timeit_wrapper
 
 @timeit
-def create_dirs(train_path, valid_path, test_path):
-    os.makedirs(train_path /'images', exist_ok=True)
-    os.makedirs(train_path /'labels', exist_ok=True) 
-    os.makedirs(valid_path /'images', exist_ok=True) 
-    os.makedirs(valid_path /'labels', exist_ok=True) 
-    os.makedirs(test_path /'images', exist_ok=True) 
-    os.makedirs(test_path /'labels', exist_ok=True) 
-
+def create_dirs(path_list):
+    for paths in path_list:
+        os.makedirs(paths /'images', exist_ok=True)
+        os.makedirs(paths /'labels', exist_ok=True) 
 
 @timeit
 def unzip(path):
-    path_list = glob(str(path) +  '/*/*/*.zip', recursive=True)
+    path_list = path.rglob('*.zip')
     for paths in (path_list):
         with zipfile.ZipFile(paths, 'r') as zip_ref:
             zip_ref.extractall(paths[:-4])
@@ -38,7 +34,16 @@ def unzip(path):
 
 @timeit
 def parse_json(path):
-    path_list = iglob(str(path)+ '/*.json', recursive=True)
+    path_list = path.rglob('라벨링데이터/*/*/*')
     for paths in path_list:
-        print(paths)
+        json_path = paths.glob('*.json')
+        for j in json_path:
+            with open(j) as json_file:
+                json = orjson.loads(json_file.read())
+                pill_code = json['images'][0]['drug_N'][3:]
+                with open(path / 'labels' / f'{pill_code}.txt', 'w') as f:
+                    f.write('')
+            break
+
+
 
