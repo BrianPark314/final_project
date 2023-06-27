@@ -41,8 +41,7 @@ def parse_json(path):
             with open(j) as json_file:
                 json = orjson.loads(json_file.read())
                 pill_code = json['images'][0]['drug_N'][3:]
-                with open(path / 'labels' / f'{pill_code}.txt', 'w') as f:
-                    f.write('')
+
             break
 
 @timeit
@@ -51,6 +50,15 @@ def move_image(path):
     for paths in path_list:
         file_name = str(paths).split('/')[-1]
         os.replace(str(paths), str(path)+f'/images/{file_name}')
+
+@timeit
+def create_label_files(path):
+    label_path = str(path / 'labels')
+    path_list = path.rglob('*.png')
+    for paths in path_list:
+        file_name = str(paths).split('/')[-1].split('.')[0]
+        with open(label_path+f'/{file_name}.txt', 'w') as f:
+            f.write('')
 
 
 
