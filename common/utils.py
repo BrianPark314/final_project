@@ -29,7 +29,7 @@ def unzip(path):
     path_list = path.rglob('*.zip')
     for paths in (path_list):
         with zipfile.ZipFile(paths, 'r') as zip_ref:
-            zip_ref.extractall(paths[:-4])
+            zip_ref.extractall(str(paths)[:-4])
             os.remove(zip_ref)
 
 @timeit
@@ -44,6 +44,13 @@ def parse_json(path):
                 with open(path / 'labels' / f'{pill_code}.txt', 'w') as f:
                     f.write('')
             break
+
+@timeit
+def move_image(path):
+    path_list = path.rglob('*.png')
+    for paths in path_list:
+        file_name = str(paths).split('/')[-1]
+        os.replace(str(paths), str(path)+f'/images/{file_name}')
 
 
 
