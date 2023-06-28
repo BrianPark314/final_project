@@ -19,7 +19,7 @@ def timeit(func):
     return timeit_wrapper
 
 @timeit
-def create_dirs(path_list):
+def create_dirs(path_list): 
     for paths in path_list:
         os.makedirs(paths /'images', exist_ok=True)
         os.makedirs(paths /'labels', exist_ok=True) 
