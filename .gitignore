@@ -1,3 +1,4 @@
 /data
 /documents
-__pycache__/
+*.__pycache__/
+/common/__pycache__/
