@@ -1,5 +1,10 @@
 /data
 /documents
+<<<<<<< HEAD
 __pycache__/
 .venv
 image data
+=======
+*.__pycache__/
+/common/__pycache__/
+>>>>>>> demo_brian

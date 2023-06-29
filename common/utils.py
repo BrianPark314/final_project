@@ -6,6 +6,7 @@ from glob import glob
 from tqdm.auto import tqdm
 import orjson
 import os
+import yaml
 
 def timeit(func):
     @wraps(func)
@@ -17,6 +18,17 @@ def timeit(func):
         print(f'Function {func.__name__} Took {total_time:.4f} seconds')
         return result
     return timeit_wrapper
+
+@timeit
+def get_yaml(path):
+    with open(path/'data.yaml', 'w') as f:
+        names = []
+        y = {'path': str(path), 
+             'train': '../train/',
+             'validation': '../validation/', 
+             'test': '../test/',
+             'names': names}
+        yaml.dump(y, f)
 
 @timeit
 def create_dirs(path_list): 
