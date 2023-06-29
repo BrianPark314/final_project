@@ -26,7 +26,8 @@ def create_yaml(path):
         y = {'path': str(path), 
              'train': '../train/',
              'validation': '../validation/', 
-             'test': '../test/',}
+             'test': '../test/',
+             'nc':len(names)}
         yaml.dump(y, f)
         yaml.dump({'names':names}, f, default_flow_style=None)
 
