@@ -55,7 +55,7 @@ def parse_json(path):
                 pill_code = json['images'][0]['drug_N'][3:]
 
             break
-
+        
 @timeit
 def move_image(path):
     path_list = path.rglob('*.png')
