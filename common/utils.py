@@ -20,15 +20,15 @@ def timeit(func):
     return timeit_wrapper
 
 @timeit
-def get_yaml(path):
+def create_yaml(path):
     with open(path/'data.yaml', 'w') as f:
-        names = []
+        names = sorted(list(pd.read_csv(path / 'db/table.csv')['dl_mapping_code']))
         y = {'path': str(path), 
              'train': '../train/',
              'validation': '../validation/', 
-             'test': '../test/',
-             'names': names}
+             'test': '../test/',}
         yaml.dump(y, f)
+        yaml.dump({'names':names}, f, default_flow_style=None)
 
 @timeit
 def create_dirs(path_list): 
@@ -56,7 +56,7 @@ def parse_json(path):
 
             break
         frame.append(pill_code)
-    pd.DataFrame(frame).to_csv(args.data_path / 'db/tabel.csv')
+    pd.DataFrame(frame).to_csv(args.data_path / 'db/table.csv')
 
 @timeit
 def move_image(path):
