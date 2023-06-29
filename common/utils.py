@@ -1,12 +1,12 @@
-from common.params import args
 import zipfile
 from functools import wraps
+from common.params import args
 import time
-from glob import glob
-from tqdm.auto import tqdm
 import orjson
 import os
 import yaml
+import pandas as pd
+from pathlib import Path
 
 def timeit(func):
     @wraps(func)
@@ -47,15 +47,17 @@ def unzip(path):
 @timeit
 def parse_json(path):
     path_list = path.rglob('라벨링데이터/*/*/*')
+    frame = []
     for paths in path_list:
         json_path = paths.glob('*.json')
         for j in json_path:
             with open(j) as json_file:
-                json = orjson.loads(json_file.read())
-                pill_code = json['images'][0]['drug_N'][3:]
+                pill_code = orjson.loads(json_file.read())['images'][0]
 
             break
-        
+        frame.append(pill_code)
+    pd.DataFrame(frame).to_csv(args.data_path / 'db/tabel.csv')
+
 @timeit
 def move_image(path):
     path_list = path.rglob('*.png')
@@ -69,8 +71,9 @@ def create_label_files(path):
     path_list = path.rglob('*.png')
     for paths in path_list:
         file_name = str(paths).split('/')[-1].split('.')[0]
-        with open(label_path+f'/{file_name}.txt', 'w') as f:
-            f.write('')
+        Path(label_path+f'/{file_name}.txt').write_text('')
+        # with open(label_path+f'/{file_name}.txt', 'w') as f:
+        #     f.write('')
 
 
 

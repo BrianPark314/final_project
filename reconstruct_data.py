@@ -7,9 +7,9 @@ if __name__ == '__main__':
     test_path = args.data_path / 'test/'
     #create_dirs([train_path, valid_path, test_path])
     #unzip(train_path)
-    #parse_json(train_path)
+    parse_json(train_path)
     #move_image(train_path)
     #create_label_files(train_path)
     #resize_image(train_path / 'images/')
-    get_yaml(args.data_path)
+    #get_yaml(args.data_path)
     #get_contour(train_path / 'images/')
