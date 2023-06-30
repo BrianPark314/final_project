@@ -1,9 +1,7 @@
-from common.utils import args
 import cv2
 from common.utils import timeit
 from glob import glob
 import numpy as np
-import matplotlib.pyplot as plt
 
 @timeit
 def resize_image(path):
@@ -13,6 +11,16 @@ def resize_image(path):
         cropped_img = img[320:960, 168:808]
         cv2.imwrite(img_path, cropped_img)
         
+def show_img(image, contours): 
+    for contour in contours:
+        x, y, w, h = cv2.boundingRect(contour) # 딱 맞는 사각형 좌표 
+        #bounding_rects.append((x/1280, y/976, (x + w)/1280, (y + h)/976)) # 사각형 그릴떄 쓰는 좌표 
+    
+    cv2.rectangle(image,(x,y),(x+w,y+h),(0,200,0),2) # 사각형 그림 
+    cv2.drawContours(image,contours,-1,(0,200,0))
+    cv2.imshow('contour',image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 @timeit
 def get_contour(path):
@@ -49,14 +57,3 @@ def get_contour(path):
     #         result.append((name_lst[i],) + bounding_rects[i] )
                 
     # return result
-
-def show_img(image, contours): 
-    for contour in contours:
-        x, y, w, h = cv2.boundingRect(contour) # 딱 맞는 사각형 좌표 
-        #bounding_rects.append((x/1280, y/976, (x + w)/1280, (y + h)/976)) # 사각형 그릴떄 쓰는 좌표 
-    
-    cv2.rectangle(image,(x,y),(x+w,y+h),(0,200,0),2) # 사각형 그림 
-    cv2.drawContours(image,contours,-1,(0,200,0))
-    cv2.imshow('contour',image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
