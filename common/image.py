@@ -55,5 +55,5 @@ def get_contour(path):
             #square_rects.append(((x,y),(x+w,y),(x,y+h),(x+w,y+h))) # 4개 꼭지점 좌표 
     #     for i in range(len(bounding_rects)): 
     #         result.append((name_lst[i],) + bounding_rects[i] )
-                
+            
     # return result

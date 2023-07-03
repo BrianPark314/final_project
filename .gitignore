@@ -8,3 +8,5 @@ image data
 *.__pycache__/
 /common/__pycache__/
 >>>>>>> demo_brian
+*.json
+*.png
