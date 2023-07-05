@@ -8,7 +8,7 @@ import yaml
 import pandas as pd
 from pathlib import Path
 import gc
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
 
 def timeit(func):
     @wraps(func)
@@ -46,7 +46,7 @@ def unzip(zip_path, unzip_path):
     for paths in (path_list):
         with zipfile.ZipFile(paths, 'r') as handle:
             print(handle)
-            with ProcessPoolExecutor(100) as exe:
+            with ThreadPoolExecutor(100) as exe:
                 _ = [exe.submit(handle.extract, m, unzip_path) for m in handle.namelist()]
             os.remove(paths)
 
