@@ -44,9 +44,12 @@ def create_dirs(data_path, path_list):
 def unzip(zip_path, unzip_path):
     path_list = zip_path.rglob('*.zip')
     for paths in (path_list):
-        with zipfile.ZipFile(paths, 'r') as zip_ref:
-            zip_ref.extractall(unzip_path)
-            os.remove(zip_ref)
+        with zipfile.ZipFile(paths, 'r') as handle:
+            print(handle)
+            with ThreadPoolExecutor() as exe:
+                _ = [exe.submit(handle.extract, m, unzip_path) for m in handle.namelist()]
+            os.remove(paths)
+
         
 
 @timeit
