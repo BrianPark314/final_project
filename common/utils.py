@@ -40,12 +40,12 @@ def create_dirs(data_path, path_list):
         os.makedirs(paths /'labels', exist_ok=True) 
 
 @timeit
-def unzip(path):
-    path_list = path.rglob('*.zip')
+def unzip(zip_path, unzip_path):
+    path_list = zip_path.rglob('*.zip')
     for paths in (path_list):
         with zipfile.ZipFile(paths, 'r') as zip_ref:
             print(zip_ref)
-            zip_ref.extractall(str(paths)[:-4])
+            zip_ref.extractall(unzip_path)
             os.remove(paths)
 
         
