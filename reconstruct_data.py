@@ -5,11 +5,12 @@ if __name__ == '__main__':
     train_path = args.data_path / 'train/'
     valid_path = args.data_path / 'validation'
     test_path = args.data_path / 'test/'
-    #create_dirs([train_path, valid_path, test_path])
-    #unzip(train_path)
-    #parse_json(train_path)
-    #move_image(train_path)
-    #create_label_files(train_path)
+    #create_dirs(args.data_path, [train_path, valid_path, test_path])
+    #unzip(args.base_path)
+    #parse_json(args.base_path)
+    move_image(args.base_path, train_path)
+    #create_label_files(args.base_path)
     #resize_image(train_path / 'images/')
-    create_yaml(args.data_path)
+    #create_yaml(args.data_path)
     #get_contour(train_path / 'images/')
+

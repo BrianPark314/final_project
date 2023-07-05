@@ -7,6 +7,7 @@ import os
 import yaml
 import pandas as pd
 from pathlib import Path
+import gc
 
 def timeit(func):
     @wraps(func)
@@ -32,7 +33,8 @@ def create_yaml(path):
         yaml.dump({'names':names}, f, default_flow_style=None)
 
 @timeit
-def create_dirs(path_list): 
+def create_dirs(data_path, path_list):
+    os.makedirs(data_path /'db', exist_ok=True)
     for paths in path_list:
         os.makedirs(paths /'images', exist_ok=True)
         os.makedirs(paths /'labels', exist_ok=True) 
@@ -42,8 +44,11 @@ def unzip(path):
     path_list = path.rglob('*.zip')
     for paths in (path_list):
         with zipfile.ZipFile(paths, 'r') as zip_ref:
+            print(zip_ref)
             zip_ref.extractall(str(paths)[:-4])
-            os.remove(zip_ref)
+            os.remove(paths)
+
+        
 
 @timeit
 def parse_json(path):
@@ -60,11 +65,13 @@ def parse_json(path):
     pd.DataFrame(frame).to_csv(args.data_path / 'db/table.csv')
 
 @timeit
-def move_image(path):
-    path_list = path.rglob('*.png')
+def move_image(ori_path, move_path):
+    path_list = ori_path.rglob('원천데이터/*.png')
     for paths in path_list:
         file_name = str(paths).split('/')[-1]
-        os.replace(str(paths), str(path)+f'/images/{file_name}')
+        print(file_name)
+        os.replace(str(paths), str(move_path)+f'/images/{file_name}')
+        gc.collect()
 
 @timeit
 def create_label_files(path):
