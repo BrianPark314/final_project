@@ -6,9 +6,9 @@ if __name__ == '__main__':
     valid_path = args.data_path / 'validation'
     test_path = args.data_path / 'test/'
     #create_dirs(args.data_path, [train_path, valid_path, test_path])
-    unzip(args.data_path / 'zip', args.data_path / 'unzip')
+    #unzip(args.data_path / 'zip', args.data_path / 'unzip')
     #parse_json(args.base_path)
-    #move_image(args.base_path, train_path)
+    move_image(args.data_path / 'unzip/', train_path)
     #create_label_files(args.base_path)
     #resize_image(train_path / 'images/')
     #create_yaml(args.data_path)

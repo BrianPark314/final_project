@@ -68,12 +68,10 @@ def parse_json(path):
 
 @timeit
 def move_image(ori_path, move_path):
-    path_list = ori_path.rglob('원천데이터/*.png')
+    path_list = ori_path.rglob('*.png')
     for paths in path_list:
         file_name = str(paths).split('/')[-1]
-        print(file_name)
         os.replace(str(paths), str(move_path)+f'/images/{file_name}')
-        gc.collect()
 
 @timeit
 def create_label_files(path):
