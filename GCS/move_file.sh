@@ -1,6 +1,5 @@
 #!/bin/bash
 
 cd /content/data/unzip
-for file in *.png; do
-    mv "${file}" -v "/content/data/train/images/${file}"
-done
+
+find ~/ -type f -print0 | xargs -0 mv -t /content/data/train/images

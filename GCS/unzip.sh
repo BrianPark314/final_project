@@ -1,4 +1,5 @@
 #!/bin/sh
+
 cd /content/data/zip/
 
 for file in *.zip; do
