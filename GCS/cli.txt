@@ -1,0 +1,2 @@
+gsutil -m rsync -r /Volumes/ADATAHV320/data/subdir/subsubdir/data gs://pill_data_brain
+gsutil -m cp -R /Volumes/ADATAHV320/data/subdir/subsubdir/data gs://pill_data_brain

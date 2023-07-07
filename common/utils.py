@@ -8,6 +8,8 @@ import os
 import yaml
 import pandas as pd
 from pathlib import Path
+import gc
+from concurrent.futures import ThreadPoolExecutor
 
 def timeit(func):
     @wraps(func)
@@ -27,24 +29,28 @@ def create_yaml(path):
         y = {'path': str(path), 
              'train': '../train/',
              'validation': '../validation/', 
-             'test': '../test/',}
+             'test': '../test/',
+             'nc':len(names)}
         yaml.dump(y, f)
         yaml.dump({'names':names}, f, default_flow_style=None)
 
 @timeit
-def create_dirs(path_list): 
+def create_dirs(data_path, path_list):
+    os.makedirs(data_path /'db', exist_ok=True)
     for paths in path_list:
         os.makedirs(paths /'data/db', exist_ok=True)
         # os.makedirs(paths /'images', exist_ok=True)
         # os.makedirs(paths /'labels', exist_ok=True) 
 
 @timeit
-def unzip(path):
-    path_list = path.rglob('*.zip')
+def unzip(zip_path, unzip_path):
+    path_list = zip_path.rglob('*.zip')
     for paths in (path_list):
         with zipfile.ZipFile(paths, 'r') as zip_ref:
-            zip_ref.extractall(str(paths)[:-4])
-            os.remove(zip_ref)
+            zip_ref.extractall(unzip_path)
+            os.remove(str(paths))
+
+        
 
 @timeit
 def parse_json(path):
@@ -68,11 +74,11 @@ def parse_json(path):
     result1 = pd.concat([df2,df1],axis=1)
     pd.DataFrame(result1).to_csv(args.data_path / 'db/annotations.csv')
 @timeit
-def move_image(path):
-    path_list = path.rglob('*.png')
+def move_image(ori_path, move_path):
+    path_list = ori_path.rglob('*.png')
     for paths in path_list:
         file_name = str(paths).split('/')[-1]
-        os.replace(str(paths), str(path)+f'/images/{file_name}')
+        os.replace(str(paths), str(move_path)+f'/images/{file_name}')
 
 @timeit
 def create_label_files(path):

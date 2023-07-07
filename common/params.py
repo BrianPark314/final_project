@@ -4,5 +4,4 @@ import os
 
 args = easydict.EasyDict()
 args.base_path = Path(os.getcwd())
-args.data_path = args.base_path / 'data/'
-
+args.data_path = Path('/content/data')
