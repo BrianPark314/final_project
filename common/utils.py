@@ -3,6 +3,7 @@ from functools import wraps
 from common.params import args
 import time
 import orjson
+import json
 import os
 import yaml
 import pandas as pd
@@ -37,8 +38,9 @@ def create_yaml(path):
 def create_dirs(data_path, path_list):
     os.makedirs(data_path /'db', exist_ok=True)
     for paths in path_list:
-        os.makedirs(paths /'images', exist_ok=True)
-        os.makedirs(paths /'labels', exist_ok=True) 
+        os.makedirs(paths /'data/db', exist_ok=True)
+        # os.makedirs(paths /'images', exist_ok=True)
+        # os.makedirs(paths /'labels', exist_ok=True) 
 
 @timeit
 def unzip(zip_path, unzip_path):
@@ -52,18 +54,25 @@ def unzip(zip_path, unzip_path):
 
 @timeit
 def parse_json(path):
-    path_list = path.rglob('라벨링데이터/*/*/*')
+    path_list = path.rglob('*')
     frame = []
+    annotations_frame=[]
     for paths in path_list:
-        json_path = paths.glob('*.json')
+        json_path = paths.glob('**/*.json')
         for j in json_path:
-            with open(j) as json_file:
-                pill_code = orjson.loads(json_file.read())['images'][0]
-
-            break
-        frame.append(pill_code)
-    pd.DataFrame(frame).to_csv(args.data_path / 'db/table.csv')
-
+            with open(j,'rt', encoding='UTF-8') as json_file:
+                pill_code = json.loads(json_file.read())['images'][0]
+            with open(j,'rt', encoding='UTF-8') as json_file:
+                annotations = json.loads(json_file.read())['annotations'][0]
+            # break
+            frame.append(pill_code)
+            annotations_frame.append(annotations)
+    # pd.DataFrame(frame).to_csv(args.data_path / 'db/table.csv')
+    # pd.DataFrame(annotations_frame).to_csv(args.data_path / 'db/annotations.csv')
+    df1 = pd.DataFrame(annotations_frame)
+    df2 = pd.DataFrame(frame)
+    result1 = pd.concat([df2,df1],axis=1)
+    pd.DataFrame(result1).to_csv(args.data_path / 'db/annotations.csv',encoding='utf-8-sig')
 @timeit
 def move_image(ori_path, move_path):
     path_list = ori_path.rglob('*.png')
@@ -73,13 +82,21 @@ def move_image(ori_path, move_path):
 
 @timeit
 def create_label_files(path):
-    label_path = str(path / 'labels')
-    path_list = path.rglob('*.png')
+    path_list = path.rglob('*')
+    i=0
+    cnt = 0
     for paths in path_list:
-        file_name = str(paths).split('/')[-1].split('.')[0]
-        Path(label_path+f'/{file_name}.txt').write_text('')
+        cnt += 1
+        png_path_list = paths.glob('**/*.png')
+        label_path = str(path / 'labels')
+        textfile =pd.read_csv(args.data_path / 'db/annotations.csv')
+        for paths2 in png_path_list:
+            i += 1
+            file_name = str(paths2).split('\\')[-1].split('.')[0]
+            x,y,w,h = json.loads(textfile['bbox'][i-1])
+            dot = [(cnt-1), ((x-((976-640)/2))+(w/2))/640, ((y-((1280-640)/2))+(h/2))/640, w/640, h/640] #좌표값 상대 좌표로 변환
+            result = ' '.join(str(s) for s in dot)
+            if textfile['file_name'][i-1].split('.')[0] == file_name:
+                Path(label_path+f'/{file_name}.txt').write_text(result)
         # with open(label_path+f'/{file_name}.txt', 'w') as f:
         #     f.write('')
-
-
-

@@ -1,4 +1,8 @@
 /data
 /documents
-*.__pycache__/
-/common/__pycache__/
+__pycache__/
+.venv
+image data
+validlabel
+*.json
+*.png
