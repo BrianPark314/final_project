@@ -1,11 +1,10 @@
 #!/bin/sh
+touch /media/brian/data/log.txt
 
-cd /Volumes/data/166.약품식별\ 인공지능\ 개발을\ 위한\ 경구약제\ 이미지\ 데이터/01.데이터/1.Training/원천데이터/단일경구약제\ 5000종
+cd /media/brian/data/166.약품식별\ 인공지능\ 개발을\ 위한\ 경구약제\ 이미지\ 데이터/01.데이터/1.Training/원천데이터/단일경구약제\ 5000종
 
 for file in *.zip; do
-  echo ${file}
-  time unzip "${file}" -d "/Volumes/data/unzip" && rm "${file}"
-  export file
+  time unzip "${file}" -d "/media/brian/data/unzip" && date >> /media/brian/data/log.txt && printf "${file}\n" >> /media/brian/data/log.txt && rm "${file}"
 done
 
 # gcloud dataflow jobs run decompress_test \

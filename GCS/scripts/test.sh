@@ -1,3 +1,3 @@
 #!/bin/sh
-
-echo 'Hello World!'
+file="test"
+export file
