@@ -72,7 +72,7 @@ def parse_json(path):
     df1 = pd.DataFrame(annotations_frame)
     df2 = pd.DataFrame(frame)
     result1 = pd.concat([df2,df1],axis=1)
-    pd.DataFrame(result1).to_csv(args.data_path / 'db/annotations.csv')
+    pd.DataFrame(result1).to_csv(args.data_path / 'db/annotations.csv',encoding='utf-8-sig')
 @timeit
 def move_image(ori_path, move_path):
     path_list = ori_path.rglob('*.png')
