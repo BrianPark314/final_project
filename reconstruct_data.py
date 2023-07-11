@@ -6,12 +6,12 @@ if __name__ == '__main__':
     valid_path = args.data_path / 'validation'
     test_path = args.data_path / 'test/'
     #create_dirs(args.data_path, [train_path, valid_path, test_path])
-    #unzip(args.data_path / 'zip', args.data_path / 'unzip')
-    #parse_json(args.base_path/'dataset1_label')
-    #move_image(args.data_path / 'unzip/', train_path)
-    #create_label_files(args.base_path)
-    # resize_image(train_path / 'images/')
+    #unzip(args.data_path, args.data_path / 'unzip')
+    #parse_json(args.data_path)
+    #move_image(args.data_path / 'unzip/', valid_path)
+    #resize_image(train_path / 'images/')
     #create_yaml(args.data_path)
+    create_label_files(args.data_path / 'processed')
     # get_contour(train_path / 'images/')
 
 

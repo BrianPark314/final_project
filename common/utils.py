@@ -9,7 +9,8 @@ import yaml
 import pandas as pd
 from pathlib import Path
 import gc
-from concurrent.futures import ThreadPoolExecutor
+from glob import glob
+
 
 def timeit(func):
     @wraps(func)
@@ -25,7 +26,7 @@ def timeit(func):
 @timeit
 def create_yaml(path):
     with open(path/'data.yaml', 'w') as f:
-        names = sorted(list(pd.read_csv(path / 'db/table.csv')['dl_mapping_code']))
+        names = sorted(list(pd.read_csv(path / 'db/annotations.csv')['dl_mapping_code'].unique()))
         y = {'path': str(path), 
              'train': '../train/',
              'validation': '../validation/', 
@@ -44,59 +45,46 @@ def create_dirs(data_path, path_list):
 
 @timeit
 def unzip(zip_path, unzip_path):
+    os.makedirs(unzip_path, exist_ok=True)
     path_list = zip_path.rglob('*.zip')
     for paths in (path_list):
         with zipfile.ZipFile(paths, 'r') as zip_ref:
             zip_ref.extractall(unzip_path)
             os.remove(str(paths))
 
-        
-
 @timeit
 def parse_json(path):
-    path_list = path.rglob('*')
-    frame = []
-    annotations_frame=[]
-    for paths in path_list:
-        json_path = paths.glob('**/*.json')
-        for j in json_path:
-            with open(j,'rt', encoding='UTF-8') as json_file:
-                pill_code = json.loads(json_file.read())['images'][0]
-            with open(j,'rt', encoding='UTF-8') as json_file:
-                annotations = json.loads(json_file.read())['annotations'][0]
-            # break
-            frame.append(pill_code)
-            annotations_frame.append(annotations)
-    # pd.DataFrame(frame).to_csv(args.data_path / 'db/table.csv')
-    # pd.DataFrame(annotations_frame).to_csv(args.data_path / 'db/annotations.csv')
-    df1 = pd.DataFrame(annotations_frame)
-    df2 = pd.DataFrame(frame)
-    result1 = pd.concat([df2,df1],axis=1)
-    pd.DataFrame(result1).to_csv(args.data_path / 'db/annotations.csv',encoding='utf-8-sig')
+    code_list = []
+    annotations_list = []
+    json_path = path.rglob('*.json')
+    for j in json_path:
+        with open(j,'rt', encoding='UTF-8') as json_file:
+            json_read = orjson.loads(json_file.read())
+            pill_code = json_read['images'][0]
+            annotations = json_read['annotations'][0]
+        code_list.append(pill_code)
+        annotations_list.append(annotations)
+
+    result = pd.concat([pd.DataFrame(annotations_list),pd.DataFrame(code_list)],axis=1).sort_values(by='file_name')
+    result[['file_name', 'bbox', 'dl_mapping_code']].to_csv(args.data_path / 'db/annotations.csv',encoding='utf-8-sig', index=False)
+
 @timeit
 def move_image(ori_path, move_path):
     path_list = ori_path.rglob('*.png')
     for paths in path_list:
-        file_name = str(paths).split('/')[-1]
+        #file_name = str(paths).split('/')[-1]
+        _, file_name = os.path.split(paths)
         os.replace(str(paths), str(move_path)+f'/images/{file_name}')
 
 @timeit
-def create_label_files(path):
-    path_list = path.rglob('*')
-    i=0
-    cnt = 0
-    for paths in path_list:
-        cnt += 1
-        png_path_list = paths.glob('**/*.png')
-        label_path = str(path / 'labels')
-        textfile =pd.read_csv(args.data_path / 'db/annotations.csv')
-        for paths2 in png_path_list:
-            i += 1
-            file_name = str(paths2).split('\\')[-1].split('.')[0]
-            x,y,w,h = json.loads(textfile['bbox'][i-1])
-            dot = [(cnt-1), ((x-((976-640)/2))+(w/2))/640, ((y-((1280-640)/2))+(h/2))/640, w/640, h/640] #좌표값 상대 좌표로 변환
-            result = ' '.join(str(s) for s in dot)
-            if textfile['file_name'][i-1].split('.')[0] == file_name:
-                Path(label_path+f'/{file_name}.txt').write_text(result)
-        # with open(label_path+f'/{file_name}.txt', 'w') as f:
-        #     f.write('')
+def create_label_files(path, pad = args.im_padding):
+    label_info = pd.read_csv(args.data_path / 'db/annotations.csv')
+    label_dict = dict(zip(list(label_info['dl_mapping_code'].unique()), range(len(list(label_info['dl_mapping_code'].unique())))))
+
+    for index, row in label_info.iterrows():
+        file_name = row['file_name'].split('.')[0]
+        x, y, w, h = json.loads(row['bbox'])
+        x, y, w, h = 0.5, 0.5, (w//2)/(w//2+pad*2), (h//2)/(h//2+pad*2)
+        result = ' '.join(map(str, [label_dict[row['dl_mapping_code']], x, y, w, h]))
+        with open(path / f'{file_name}.txt', 'w') as f:
+            f.write(result)
