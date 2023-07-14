@@ -7,11 +7,11 @@ if __name__ == '__main__':
     test_path = args.data_path / 'test/'
     #create_dirs(args.data_path, [train_path, valid_path, test_path])
     #unzip(args.data_path, args.data_path / 'unzip')
-    #parse_json(args.data_path)
+    parse_json(args.data_path)
     #move_image(args.data_path / 'unzip/', valid_path)
     #resize_image(train_path / 'images/')
-    #create_yaml(args.data_path)
-    create_label_files(args.data_path / 'processed')
+    create_yaml(args.data_path)
+    #create_label_files(args.data_path / 'processed')
     # get_contour(train_path / 'images/')
 
 

@@ -9,8 +9,9 @@ import yaml
 import pandas as pd
 from pathlib import Path
 import gc
+import shutil
 from glob import glob
-
+import subprocess
 
 def timeit(func):
     @wraps(func)
@@ -40,17 +41,15 @@ def create_dirs(data_path, path_list):
     os.makedirs(data_path /'db', exist_ok=True)
     for paths in path_list:
         os.makedirs(paths /'data/db', exist_ok=True)
-        # os.makedirs(paths /'images', exist_ok=True)
+        # os.makedirs(paths /'images', exiㅁst_ok=True)
         # os.makedirs(paths /'labels', exist_ok=True) 
 
 @timeit
 def unzip(zip_path, unzip_path):
+    if unzip_path.exists() and unzip_path.is_dir():
+        shutil.rmtree(unzip_path)
     os.makedirs(unzip_path, exist_ok=True)
-    path_list = zip_path.rglob('*.zip')
-    for paths in (path_list):
-        with zipfile.ZipFile(paths, 'r') as zip_ref:
-            zip_ref.extractall(unzip_path)
-            os.remove(str(paths))
+    subprocess.run(['bash', './common/scripts/unzip.sh', str(zip_path), str(unzip_path) ])
 
 @timeit
 def parse_json(path):
