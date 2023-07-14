@@ -1,3 +1,3 @@
 #!/bin/bash
 
-gsutil cp $1 $2
+gsutil cp -r $1 $2
