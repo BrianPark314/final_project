@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Posting!</title>
+    </head>
+    <body>
+        <h1>게시글 개별 페이지입니다</h1>
+        <p>{{post.postname}}</p>
+        <p>{{post.contents}}</p>
+        <!-- 이미지 보여주기 -->
+        {% if post.mainphoto %}
+            <img src = "{{ post.mainphoto.url }}" alt="" height="600">
+            <br>
+        {% endif %}
+        <a href="/blog/">목록</a>
+    </body>
+</html>
