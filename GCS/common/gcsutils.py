@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 import os
-sys.path.insert(0, '/Users/Shark/Projects/final_project')
+sys.path.insert(0, os.getcwd())
 from common.params import args
 from common.image import resize_image
 import subprocess
@@ -52,13 +52,13 @@ def resize_folder(folder_list):
             resize_image(args.GCS_path / 'cache', label_info)
             subprocess.run(['bash', str(args.script_path / 'upload_img.sh'), str(args.GCS_path),
                             folder, args.gcs_processed_path,])
-            with open(args.base_path / 'GCS/logs/complete_folders.txt', 'w') as f:
-                f.write(folder + '\n')
+            with open(args.base_path / 'GCS/logs/complete_folders.txt', 'a') as f:
+                f.writelines(folder + '\n')
         except:
-            with open(args.base_path / 'GCS/logs/complete_folders.txt', 'w') as f:
+            with open(args.base_path / 'GCS/logs/complete_folders.txt', 'a') as f:
                 f.write(folder + '\n')
             continue
-        break
+
     
 
 

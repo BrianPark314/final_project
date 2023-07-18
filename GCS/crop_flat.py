@@ -1,7 +1,8 @@
 import sys
 import subprocess
 from common.gcsutils import organize_images, resize
-sys.path.insert(0, '/Users/Shark/Projects/final_project')
+import os
+sys.path.insert(0, os.getcwd())
 
 from common.params import args
 
