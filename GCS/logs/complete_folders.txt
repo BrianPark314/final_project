@@ -1,0 +1,1 @@
+gs://pill_data_brain/train/images/-004552/
