@@ -4,14 +4,45 @@ from glob import glob
 import numpy as np
 import pandas as pd
 from common.params import args
+import os
+import json
+
+from common.multiprocessing import process_images, chunk
+from multiprocessing import Process
+from multiprocessing import cpu_count
 
 @timeit
-def resize_image(path):
-    path_list = glob(str(path / '*.png'))
-    for img_path in path_list:
+def resize_image(path, label_info, pad = args.im_padding):
+    path_list = sorted(path.glob('*.png'))
+    for i, img_path in enumerate(path_list):
+        _, file_name = os.path.split(img_path)
         img = cv2.imread(str(img_path))
-        cropped_img = img[320:960, 168:808]
-        cv2.imwrite(str(img_path), cropped_img)
+        img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX)
+        img = cv2.resize(img, dsize=(0, 0), fx=0.5, fy=0.5, interpolation=cv2.INTER_LINEAR)
+        x, y, w, h = json.loads(label_info['bbox'].loc[label_info['file_name']==file_name].iloc[0])
+        img = img[(y//2)-pad:(y//2)+(h//2)+pad, 
+                  (x//2)-pad:(x//2)+(w//2)+pad]
+        cv2.imwrite(str(img_path), img)
+
+def resize_image_m(img_path, i, label_info, pad = args.im_padding):
+    _, file_name = os.path.split(img_path)
+    if file_name != label_info.iloc[i]['file_name']:
+        print('File name mismatch!')
+        return None
+    img = cv2.imread(str(img_path))
+    img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX)
+    img = cv2.resize(img, dsize=(0, 0), fx=0.5, fy=0.5, interpolation=cv2.INTER_LINEAR)
+    x, y, w, h = json.loads(label_info['bbox'][i])
+    img = img[(y//2)-pad:(y//2)+(h//2)+pad, 
+                (x//2)-pad:(x//2)+(w//2)+pad]
+    cv2.imwrite(str(args.data_path / f'processed/{file_name}'), img)
+
+@timeit
+def multiprocess(path):
+    label_info = pd.read_csv(args.data_path / 'db/annotations.csv')
+    for i, input_path in enumerate(sorted(path.rglob('*.png'))):
+        p = Process(target=resize_image_m, args=(input_path,i,label_info,))
+        p.start()
 
 def show_img(image, contours): 
     for contour in contours:

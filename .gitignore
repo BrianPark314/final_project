@@ -6,3 +6,5 @@ image data
 validlabel
 *.json
 *.png
+*.gstmp
+*.txt

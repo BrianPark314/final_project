@@ -1,8 +1,8 @@
 import subprocess
 import sys
-sys.path.insert(0, '/home/brian/repos/final_project')
-import time
 import os
+sys.path.insert(0, os.getcwd())
+import time
 
 from common.params import args
 
