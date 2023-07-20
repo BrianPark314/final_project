@@ -4,10 +4,12 @@ import os
 sys.path.insert(0, os.getcwd())
 from common.params import args
 from common.image import resize_image
+from common.utils import timeit
 import subprocess
 from more_itertools import ichunked
 import pandas as pd
 import shutil
+from iteration_utilities import duplicates
 
 # def organize_images(url_list_nested):
 #     bucket = init_bucket()
@@ -59,7 +61,37 @@ def resize_folder(folder_list):
                 f.write(folder + '\n')
             continue
 
+def get_files_list(type):
+    subprocess.run(['bash', args.script_path / f'get_{type}_list.sh',str(args.GCS_path / 'logs')])
+    with open(str(args.GCS_path / f'logs/{type}.txt'), 'r') as f:
+        type_list = f.read().split('\n')
+    type_list = [_.split('/')[-1] for _ in type_list]
+    return type_list
+
+def get_difference_from_list(original, compared):
+    for _ in [original, compared]:
+        if len(set(_)) != len(_):
+            print(f'list has {len(_)-len(set(_))} duplicates!', )
+            return None
     
+
+@timeit
+def check_images():
+    label_info = pd.read_csv(args.data_path / 'db/annotations.csv')
+    total_list = label_info['file_name'].values.tolist()
+    #subprocess.run(['bash', args.script_path / 'get_processed_list.sh',str(args.GCS_path / 'logs')])
+    with open(str(args.GCS_path / 'logs/processed.txt'), 'r') as f:
+        processed_list = f.read().split('\n')
+    processed_list = sorted([_.split('/')[-1] for _ in processed_list])
+    #subprocess.run(['bash', args.script_path / 'get_uploaded_list.sh',str(args.GCS_path / 'logs')])
+    with open(str(args.GCS_path / 'logs/uploaded.txt'), 'r') as f:
+        uploaded_list = f.read().split('\n')
+    uploaded_list = list(set(sorted([_.split('/')[-1] for _ in uploaded_list])))
+    print('total image count: ', len(total_list))
+    print('uploaded image count: ', len(uploaded_list), round(len(uploaded_list)/len(total_list)*100, 0), '%')
+    get_difference_from_list(total_list, uploaded_list)
+    print('cropped image count: ', len(processed_list), round(len(processed_list)/len(total_list)*100, 0), '%')
+    get_difference_from_list(uploaded_list, processed_list)
 
 
 
