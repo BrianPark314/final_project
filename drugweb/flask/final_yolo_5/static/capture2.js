@@ -65,7 +65,7 @@ frontCameraButton.onclick = function () {
   cameraStart();
 };
 
-
+// 
 // sendbutton누르면 image url(photoDisplay.src) 형식 바꿔서 보내줌 
 sendPhotoButton.onclick = () => {
   if (photoDisplay.src) {
