@@ -36,7 +36,7 @@ def fill_unknown():
     return df_json
 
 df_json = fill_unknown()
-# print(df_json.isna().sum())  # 확인용
+# print(df_json.isna().sum())  # checking
 
 
 ##### csv로 저장하기 #####
