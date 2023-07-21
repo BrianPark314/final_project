@@ -1,0 +1,60 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Name of the app -->
+    <title>Camera Mobile Website</title>
+    <!-- Link to main style sheet -->
+    <link rel="stylesheet" href="style/style.css" />
+    <!-- bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <!-- Main content of the HTML -->
+    <main id="camera">
+      <!-- Camera view -->
+      <!-- canvas: Area for drawing graphics on a web page -->
+      <div class="firstarea">
+        <canvas id="camera-view"></canvas>
+        <!-- Camera device -->
+        <!-- Play the video streaming in "camera-view" -->
+        <video id="camera-device" autoplay playsinline></video>
+      </div>
+
+      <!-- buttons -->
+      <div id="camera-button" class="d-grid gap-2">
+        <!-- Front camera button -->
+        <button id="front-camera-button" class="btn btn-secondary mx-4">
+          Front Camera
+        </button>
+
+        <!-- Take photo button -->
+        <button id="take-photo-button" class="btn btn-primary mx-4">
+          Take Photo
+        </button>
+
+        <!-- Send photo button -->
+        <button id="send-photo-button" class="btn btn-primary mx-4">
+          Send Photo
+        </button>
+      </div>
+
+      <!-- Photo display -->
+      <img alt="" id="photo-display" />
+    </main>
+
+    <!-- Reference to the JavaScript file -->
+    <script src="./js/capture2.js"></script>
+  </body>
+</html>
