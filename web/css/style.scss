@@ -78,7 +78,8 @@ body {
   }
 }
 
-/*header section*/
+
+/* header section */
 .hero_area {
   background-image: url(../images/hero-bg.jpg);
   background-size: cover;
@@ -87,10 +88,6 @@ body {
 .sub_page {
   .hero_area {
     height: auto;
-  }
-
-  .who_section.layout_padding {
-    padding-top: 0;
   }
 }
 
@@ -131,8 +128,7 @@ body {
     }
   }
 
-  &.active,
-  &:hover {
+  &.active, &:hover {
     a {
       &::after {
         display: block;
@@ -141,19 +137,15 @@ body {
   }
 }
 
-a,
-a:hover,
-a:focus {
+a, a:hover, a:focus {
   text-decoration: none;
 }
 
-a:hover,
-a:focus {
+a:hover, a:focus {
   color: initial;
 }
 
-.btn,
-.btn:focus {
+.btn, .btn:focus {
   outline: none !important;
   box-shadow: none;
 }
@@ -217,8 +209,10 @@ a:focus {
   background-size: 55px;
 }
 
-/*end header section*/
+/* end header section */
 
+
+// slider section
 .slider_section {
   height: 90%;
   display: flex;
@@ -246,10 +240,6 @@ a:focus {
     h2 {
       font-weight: bold;
       font-size: 2.5rem;
-    }
-
-    p {
-      margin-top: 25px;
     }
 
     a {
@@ -288,8 +278,8 @@ a:focus {
 
 // end slider section
 
-// how section
 
+// how section (what we made)
 .how_section {
   .how_container {
     display: flex;
@@ -301,24 +291,12 @@ a:focus {
       text-align: center;
       margin: 10px;
       min-width: 200px;
-      width: 325px;
-
-      .img-box {
-        display: flex;
-        justify-content: center;
-        height: 200px;
-        background-color: #f6f5f7;
-
-        svg {
-          width: 75px;
-          height: auto;
-        }
-      }
+      width: 370px;
 
       .detail-box {
         margin-top: 15px;
 
-        h5 {
+        h4 {
           font-weight: bold;
           position: relative;
 
@@ -340,19 +318,22 @@ a:focus {
         }
       }
 
+      .img-box {
+        display: flex;
+        justify-content: center;
+        height: 200px;
+        background-color: #f6f5f7;
+      }
+
       &:hover {
         .img-box {
           background-color: $primary1;
-
-          svg {
-            fill: $white;
-          }
         }
 
         .detail-box {
           margin-top: 15px;
 
-          h5 {
+          h4 {
             &::before {
               display: block;
             }
@@ -376,9 +357,10 @@ a:focus {
   }
 }
 
-// end how section
+// end how section (what we made)
 
-// about section
+
+// about section (How it works)
 .about_section {
   text-align: center;
 
@@ -398,108 +380,12 @@ a:focus {
       }
     }
   }
-
-  .btn-box {
-    display: flex;
-    justify-content: center;
-
-    a {
-      @include hero_btn(#171717, $white, 10px, 45px, 5px);
-      margin-top: 35px;
-    }
-  }
 }
 
-// end about section
+// end about section (How it works)
 
-// app section
 
-section.app_section {
-  color: $white;
-  background: linear-gradient(to right, #30ae69, #072e85);
-
-  .row {
-    align-items: center;
-  }
-
-  .detail-box {
-    h2 {
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .download_box {
-      margin-top: 55px;
-      max-width: 45px 0;
-      display: flex;
-      align-items: center;
-
-      h5 {
-        margin-right: 25px;
-      }
-
-      .btn-box {
-        display: flex;
-
-        a {
-          display: flex;
-          margin: 0 5px;
-
-          img {
-            max-width: 100%;
-          }
-        }
-      }
-    }
-  }
-
-  .img-box {
-    display: flex;
-    justify-content: center;
-    transform: scale(1.07) translateY(-14px);
-
-    img {
-      width: 85%;
-    }
-  }
-}
-
-// end app section
-
-// auto section
-.auto_section {
-  text-align: center;
-
-  .box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .img-box {
-      display: flex;
-      justify-content: center;
-      margin-top: 5px;
-
-      img {
-        max-width: 100%;
-      }
-    }
-  }
-
-  .btn-box {
-    display: flex;
-    justify-content: center;
-
-    a {
-      @include hero_btn(#171717, $white, 10px, 45px, 5px);
-      margin-top: 35px;
-    }
-  }
-}
-
-// end auto section
-
-// client section
+// client section (Who made it)
 .client_section {
   .box {
     display: flex;
@@ -568,20 +454,9 @@ section.app_section {
       }
     }
   }
-
-  .btn-box {
-    display: flex;
-    justify-content: center;
-
-    a {
-      @include hero_btn(#171717, $white, 10px, 45px, 5px);
-      margin-top: 25px;
-    }
-  }
 }
 
-// end client section
-
+// end client section (Who made it)
 
 
 // info section
@@ -594,7 +469,6 @@ section.app_section {
     margin-bottom: 35px;
     font-size: 22px;
   }
-
 
   .info_contact {
 
@@ -629,10 +503,6 @@ section.app_section {
       width: 35px;
       display: flex;
       justify-content: center;
-    }
-
-    p {
-      margin: 0;
     }
 
     >div {
@@ -694,9 +564,7 @@ section.app_section {
 // end info section
 
 
-
-
-/* footer section*/
+/* footer section */
 .footer_section {
   background-color: #171717;
   font-weight: 500;
@@ -715,4 +583,4 @@ section.app_section {
   color: #636363;
 }
 
-/* end footer section*/
+/* end footer section */
