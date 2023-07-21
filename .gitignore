@@ -1,7 +1,9 @@
-/data
-/documents
+preprocessing/data/
 __pycache__/
 .venv
 image data
 validlabel
+venvs
+*.pt
+volov5
 venvs
