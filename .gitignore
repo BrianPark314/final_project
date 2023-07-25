@@ -1,3 +1,5 @@
+/data
+/documents
 preprocessing/data/
 __pycache__/
 .venv
