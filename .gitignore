@@ -1,7 +1,14 @@
+/data
+/documents
 preprocessing/data/
 __pycache__/
 .venv
 image data
+validlabel
+*.json
+*.png
+*.gstmp
+*.txt
 validlabel
 venvs
 *.pt
