@@ -79,11 +79,11 @@ def get_difference_from_list(original, compared):
 def check_images():
     label_info = pd.read_csv(args.data_path / 'db/annotations.csv')
     total_list = label_info['file_name'].values.tolist()
-    #subprocess.run(['bash', args.script_path / 'get_processed_list.sh',str(args.GCS_path / 'logs')])
+    subprocess.run(['bash', args.script_path / 'get_processed_list.sh',str(args.GCS_path / 'logs')])
     with open(str(args.GCS_path / 'logs/processed.txt'), 'r') as f:
         processed_list = f.read().split('\n')
     processed_list = sorted([_.split('/')[-1] for _ in processed_list])
-    #subprocess.run(['bash', args.script_path / 'get_uploaded_list.sh',str(args.GCS_path / 'logs')])
+    subprocess.run(['bash', args.script_path / 'get_uploaded_list.sh',str(args.GCS_path / 'logs')])
     with open(str(args.GCS_path / 'logs/uploaded.txt'), 'r') as f:
         uploaded_list = f.read().split('\n')
     uploaded_list = list(set(sorted([_.split('/')[-1] for _ in uploaded_list])))
