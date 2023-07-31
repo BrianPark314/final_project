@@ -1,0 +1,3 @@
+[submodule "yolov5-fastapi-demo"]
+	path = yolov5-fastapi-demo
+	url = https://github.com/BrianPark314/final_project/yolov5-fastapi-demo
