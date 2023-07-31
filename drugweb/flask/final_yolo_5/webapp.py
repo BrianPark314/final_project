@@ -11,6 +11,7 @@ import cv2
 import ssl
 import base64
 import uuid
+import pandas as pd
 
 import torch
 from flask import Flask, render_template, request, redirect , Response , jsonify
@@ -21,7 +22,7 @@ DATETIME_FORMAT = "%Y-%m-%d_%H-%M-%S-%f"
 
 @app.route('/')
 def main_page():
-    return render_template('index.html')
+    return render_template('home.html')
 
 #capture 1 용 predict 
 @app.route("/predict", methods=["GET", "POST"])
@@ -41,9 +42,18 @@ def predict():
         now_time = datetime.datetime.now().strftime(DATETIME_FORMAT) # 저장 형식 
         img_savename = f"static/{now_time}.png"
         Image.fromarray(results.ims[0]).save(img_savename)
-        return redirect(img_savename)
+        
+    return render_template("image.html")
+        # df = results.pandas().xyxy[0]
+        # return redirect('result.html', table=df.to_html())
+        # return redirect(img_savename)
 
     return render_template("image.html")
+
+
+@app.route('/result')
+def result():
+    return render_template('result.html')
 
 @app.route('/capture2')
 def index2():
@@ -52,7 +62,6 @@ def index2():
 
 @app.route('/upload')
 def upload():
-    
     return render_template('upload.html')
 
 
