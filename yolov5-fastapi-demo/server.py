@@ -10,6 +10,7 @@ import os
 from PIL import Image
 import io
 from datetime import datetime
+from sql_app.main import get_info
 sys.path.insert(0, '/Users/Shark/Projects/final_project/yolov5-fastapi-demo')
 
 import cv2
@@ -222,7 +223,7 @@ def results_to_json(results, model):
                     "class": int(pred[5]),
                     "class_name": model.model.names[int(pred[5])],
                     "bbox": [int(x) for x in pred[:4].tolist()], #convert bbox results to int from float
-                    "confidence": float(pred[4]),
+                    "confidence": round(float(pred[4]), 2),
                     }
                 for pred in result
                 ]

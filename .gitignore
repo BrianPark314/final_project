@@ -14,3 +14,5 @@ venvs
 *.pt
 volov5
 venvs
+*.csv
+*.db
