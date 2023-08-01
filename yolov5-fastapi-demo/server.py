@@ -1,3 +1,4 @@
+# -*- coding: utf-8-sig -*-
 from fastapi import FastAPI, Request, Form, File, UploadFile
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
@@ -72,27 +73,12 @@ def show_results(request:Request,
     with open(file_path, 'rb') as f:
         data = f.read()
     img_batch  = [cv2.imdecode(np.fromstring(data, np.uint8), cv2.IMREAD_COLOR)]
-    img_batch_rgb = [cv2.cvtColor(img, cv2.COLOR_BGR2RGB) for img in img_batch]
+    img_str_list, json_results_merged, encoded_json_results = inference(img_batch, img_size)
 
-    model = torch.hub.load('ultralytics/yolov5', 'custom', path='./best.pt', force_reload=True) 
-
-    results = model(img_batch_rgb, size = img_size)
-    json_results = results_to_json(results,model)
-    img_str_list = []
-    #plot bboxes on the image
-    for img, bbox_list in zip(img_batch, json_results):
-        for bbox in bbox_list:
-            label = f'{bbox["class_name"]} {bbox["confidence"]:.2f}'
-            plot_one_box(bbox['bbox'], img, label=label, 
-                    line_thickness=3)
-
-        img_str_list.append(base64EncodeImage(img))
-
-    encoded_json_results = str(json_results).replace("'",r"\'").replace('"',r'\"')
 
     return templates.TemplateResponse('show_results.html', {
             'request': request,
-            'bbox_image_data_zipped': zip(img_str_list,json_results), #unzipped in jinja2 template
+            'bbox_image_data_zipped': zip(img_str_list,json_results_merged), #unzipped in jinja2 template
             'bbox_data_str': encoded_json_results,
         })
 
@@ -132,36 +118,13 @@ async def detect_with_server_side_rendering(request: Request,
     results_to_json() function and skip the rest
     '''
 
-    model_dict[model_name] = torch.hub.load('ultralytics/yolov5', 'custom', path='./best.pt', force_reload=True) 
-
     img_batch = [cv2.imdecode(np.fromstring(file.file.read(), np.uint8), cv2.IMREAD_COLOR)
                     for file in file_list]
-
-    #create a copy that corrects for cv2.imdecode generating BGR images instead of RGB
-    #using cvtColor instead of [...,::-1] to keep array contiguous in RAM
-    img_batch_rgb = [cv2.cvtColor(img, cv2.COLOR_BGR2RGB) for img in img_batch]
-
-    results = model_dict[model_name](img_batch_rgb, size = img_size)
-
-    json_results = results_to_json(results,model_dict[model_name])
-
-    img_str_list = []
-    #plot bboxes on the image
-    for img, bbox_list in zip(img_batch, json_results):
-        for bbox in bbox_list:
-            label = f'{bbox["class_name"]} {bbox["confidence"]:.2f}'
-            plot_one_box(bbox['bbox'], img, label=label, 
-                    line_thickness=3)
-
-        img_str_list.append(base64EncodeImage(img))
-    #color=colors[int(bbox['class'])]
-    #escape the apostrophes in the json string representation
-    encoded_json_results = str(json_results).replace("'",r"\'").replace('"',r'\"')
-
+    img_str_list, json_results_merged, encoded_json_results = inference(img_batch, img_size)
     # show_results(request, zip(img_str_list,json_results), encoded_json_results)
     return templates.TemplateResponse('show_results.html', {
             'request': request,
-            'bbox_image_data_zipped': zip(img_str_list,json_results), #unzipped in jinja2 template
+            'bbox_image_data_zipped': zip(img_str_list,json_results_merged), #unzipped in jinja2 template
             'bbox_data_str': encoded_json_results,
         })
 
@@ -201,7 +164,7 @@ def detect_via_api(request: Request,
         #server side render the image with bounding boxes
         for idx, (img, bbox_list) in enumerate(zip(img_batch, json_results)):
             for bbox in bbox_list:
-                label = f'{bbox["class_name"]} {bbox["confidence"]:.2f}'
+                label = f'{bbox["drug_N"]} {bbox["confidence"]:.2f}'
                 plot_one_box(bbox['bbox'], img, label=label, 
                         color=colors[int(bbox['class'])], line_thickness=3)
 
@@ -214,6 +177,30 @@ def detect_via_api(request: Request,
 ##############################################
 #--------------Helper Functions---------------
 ##############################################
+
+def inference(img_batch, img_size):
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path='./best.pt', force_reload=True) 
+    #create a copy that corrects for cv2.imdecode generating BGR images instead of RGB
+    #using cvtColor instead of [...,::-1] to keep array contiguous in RAM
+    img_batch_rgb = [cv2.cvtColor(img, cv2.COLOR_BGR2RGB) for img in img_batch]
+    results = model(img_batch_rgb, size = img_size)
+    json_results = results_to_json(results , model)
+    img_str_list = []
+    #plot bboxes on the image
+    json_results_merged = [[j | get_info(str(j['class_name'])).__dict__ for j in json] for json in json_results]
+    for img, bbox_list in zip(img_batch, json_results):
+        for bbox in bbox_list:
+            label='test'
+            label = f'{bbox["class_name"]}'
+            plot_one_box(bbox['bbox'], img, label=label, 
+                    line_thickness=3)
+
+        img_str_list.append(base64EncodeImage(img))
+
+    #color=colors[int(bbox['class'])]
+    #escape the apostrophes in the json string representation
+    encoded_json_results = str(json_results_merged).replace("'",r"\'").replace('"',r'\"')
+    return img_str_list, json_results_merged, encoded_json_results
 
 def results_to_json(results, model):
     ''' Converts yolo model output to json (list of list of dicts)'''
@@ -243,7 +230,7 @@ def plot_one_box(x, im, color=(128, 128, 128), label=None, line_thickness=3):
         t_size = cv2.getTextSize(label, 0, fontScale=tl / 3, thickness=tf)[0]
         c2 = c1[0] + t_size[0], c1[1] - t_size[1] - 3
         cv2.rectangle(im, c1, c2, color, -1, cv2.LINE_AA)  # filled
-        cv2.putText(im, label, (c1[0], c1[1] - 2), 0, tl / 3, [225, 255, 255], thickness=tf, lineType=cv2.LINE_AA)
+#        cv2.putText(im, label, (c1[0], c1[1]), 0, tl / 3, [225, 255, 255], thickness=tf, lineType=cv2.LINE_AA)
 
 
 def base64EncodeImage(img):

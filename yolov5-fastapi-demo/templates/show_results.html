@@ -7,7 +7,7 @@ to stop the form from redirecting -->
 <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 <form onsubmit="download('results.json', '{{ bbox_data_str }}')" target="dummyframe">
   <div class="d-flex">
-    <div class="d-inline-block ml-1 mr-3 py-1"><h2>Results</h2></div>
+    <div class="d-inline-block ml-1 mr-3 py-1"><h2>분석 결과</h2></div>
     <div class="d-inline-block mx-3 py-1"><input class="btn btn-primary" type="submit" value="Download Results"></div>
   </div>
 </form>
@@ -16,16 +16,27 @@ to stop the form from redirecting -->
 <table class="table">
 <thead>
   <tr>
-    <th>Class</th>
-    <th>Bounding Box [x1, y1, x2, y2]</th>
-    <th>Confidence</th>
+    <th>이름</th>
+    <th>정확도</th>
+    <th>함유 성분</th>
+    <th>복용 방법</th>
+    <th>주의사항</th>
+    <th>주의 음식</th>
+    <th>효과</th>
+    <th>부작용</th>
+
   </tr>
 </thead>
   {% for bbox in bbox_list %}
     <tr>
-      <td>{{ bbox['class_name'] }}</td>
-      <td>{{ bbox['bbox'] }}</td>
+      <td>{{ bbox['dl_name'] }}</td>
       <td>{{ bbox['confidence'] }}</td>
+      <td>{{ bbox['dl_material'] }}</td>
+      <td>{{ bbox['instructions'] }}</td>
+      <td>{{ bbox['caution'] }}</td>
+      <td>{{ bbox['caution_food'] }}</td>
+      <td>{{ bbox['effects'] }}</td>
+      <td>{{ bbox['side_effects'] }}</td>
     </tr>
   {% endfor %}
 </table>

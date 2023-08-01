@@ -10,6 +10,13 @@ class Info(Base):
     index = Column(Integer, primary_key=True, index=True)
     drug_N = Column(Text)
     dl_name = Column(Text)
+    dl_material = Column(Text)
+    effects = Column(Text)
+    instructions = Column(Text)
+    caution = Column(Text)
+    caution_food = Column(Text)
+    side_effects = Column(Text)
+    
 
     # warnings = relationship("Warning", back_populates="info")
 
