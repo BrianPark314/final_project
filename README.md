@@ -39,8 +39,8 @@ front backend
 
 
 ## issue정리 
-preprocessing and model 
-1)bounding box 처리 and model 학습 issue
+### 1. preprocessing and model 
+#### 1.1)bounding box 처리 and model 학습 issue
 - 자체적으로 bounding box를 추출하는 작업을 하기위해 opencv gaussian blur , countour작업등을 해서 bounding box추출 후 test  
 issue : bouding box 가 모양에 따라 알약 bounding box를 제대로 추출 못하는 문제가 생김 
 issue : 배경 noise 처리 문제
@@ -62,7 +62,7 @@ issue : 50epoch model 학습시 23epoch까지 하고 멈춰버리는 문제(cola
 
 
 
-2) csv 전처리 issue  
+#### 1.2) csv 전처리 issue  
 - 데이터 확보 및 json 정보 csv 파일 변환 
 try 1: json image 정보 csv 파일 형태로 변환 module 화
 issue : csv 데이터 자체 이상치 , 비정규화 문제 / 필요없는열이 많은 문제
@@ -80,7 +80,7 @@ issue : 겹치지 않는 데이터가 많은 문제(한계점)
 
 ------------------------------------------------------------------------------------------------------------------------------
 
-2)데이터 용량 문제 + 연동 문제 (4.4TB)
+### 2)데이터 용량 문제 + 연동 문제 (4.4TB)
 - 데이터를 다운받고 압축을 풀고 하는 과정 시도
 main issue : 데이터 용량 issue로 local에 데이터를 다운하는것이 불가능
 try1 : GCS상에 데이터를 다운 받으려 시도 
@@ -107,7 +107,7 @@ try3 : bouding box + padding 20
 
 ---------------------------------------------------------------------------------------------------------
 
-3) backend & frontend 구축 문제 
+### 3) backend & frontend 구축 문제 
 - 사진을 업로드 또는 촬영하면 best model 을 타고 화면상에 detection image  + image information 구현 시도 
 main issue : backend tool 활용 선택 문제 
 try1 : django 를 활용한 yolov5 서비스 구현 시도 
