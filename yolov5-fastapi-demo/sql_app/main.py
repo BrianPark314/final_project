@@ -18,8 +18,10 @@ def get_db():
         db.close()
 
 def get_info(drug_N, info: schemas.Info=schemas.Info, db=next(get_db())):
-    pill_info = crud.get_name(db, drug_N)
-    return pill_info
+    return crud.get_name(db, drug_N)
+
+def get_warning(reference_code, db=next(get_db())):
+    return crud.get_from_warning(db, reference_code)
 
 # @app.post("/users/", response_model=schemas.User)
 # def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):

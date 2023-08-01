@@ -11,11 +11,12 @@ import os
 from PIL import Image
 import io
 from datetime import datetime
-from sql_app.main import get_info
+from sql_app.main import get_info, get_warning
 sys.path.insert(0, '/Users/Shark/Projects/final_project/yolov5-fastapi-demo')
 
 import cv2
 import numpy as np
+from itertools import combinations
 
 import torch
 import base64
@@ -29,7 +30,7 @@ templates = Jinja2Templates(directory = 'templates')
 
 DATETIME_FORMAT = "%Y-%m-%d_%H-%M-%S-%f"
 model_selection_options = ['best']
-model_dict = {model_name: None for model_name in model_selection_options} #set up model cache
+#model_dict = {model_name: None for model_name in model_selection_options} #set up model cache
 
 colors = [tuple([random.randint(0, 255) for _ in range(3)]) for _ in range(100)] #for bbox plotting
 
@@ -74,7 +75,8 @@ def show_results(request:Request,
         data = f.read()
     img_batch  = [cv2.imdecode(np.fromstring(data, np.uint8), cv2.IMREAD_COLOR)]
     img_str_list, json_results_merged, encoded_json_results = inference(img_batch, img_size)
-
+    
+    find_bad_combinations(json_results_merged)
 
     return templates.TemplateResponse('show_results.html', {
             'request': request,
@@ -121,7 +123,8 @@ async def detect_with_server_side_rendering(request: Request,
     img_batch = [cv2.imdecode(np.fromstring(file.file.read(), np.uint8), cv2.IMREAD_COLOR)
                     for file in file_list]
     img_str_list, json_results_merged, encoded_json_results = inference(img_batch, img_size)
-    # show_results(request, zip(img_str_list,json_results), encoded_json_results)
+    find_bad_combinations(json_results_merged)
+
     return templates.TemplateResponse('show_results.html', {
             'request': request,
             'bbox_image_data_zipped': zip(img_str_list,json_results_merged), #unzipped in jinja2 template
@@ -201,6 +204,21 @@ def inference(img_batch, img_size):
     #escape the apostrophes in the json string representation
     encoded_json_results = str(json_results_merged).replace("'",r"\'").replace('"',r'\"')
     return img_str_list, json_results_merged, encoded_json_results
+
+def convert_to_int(string_code):
+    try:
+        return int(string_code)
+    except:
+        return 0
+    
+def find_bad_combinations(json_results_merged):
+    bad_combinations = []
+    codes = [[convert_to_int(j['di_edi_code']) for j in json] for json in json_results_merged]
+    code_combinations = [combinations(code, 2) for code in codes if 0 not in code]
+    for code_combs in list(code_combinations)[0]:
+        if get_warning(list(code_combs)[0]) != None:
+            print(get_warning(list(code_combs)[0]).__dict__)
+    return bad_combinations
 
 def results_to_json(results, model):
     ''' Converts yolo model output to json (list of list of dicts)'''

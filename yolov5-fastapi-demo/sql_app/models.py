@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Text
+from sqlalchemy import Column, Integer, Text
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -16,6 +16,7 @@ class Info(Base):
     caution = Column(Text)
     caution_food = Column(Text)
     side_effects = Column(Text)
+    di_edi_code = Column(Text)
     
 
     # warnings = relationship("Warning", back_populates="info")
@@ -24,9 +25,9 @@ class Info(Base):
 class Warning(Base):
     __tablename__ = "warning"
 
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True)
-    description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("users.id"))
+    index = Column(Integer, primary_key=True, index=True)
+    reference_code = Column(Integer)
+    code_matches = Column(Text)
+    info = Column(Text)
 
     #info = relationship("Info", back_populates="warnings")

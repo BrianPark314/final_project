@@ -6,6 +6,8 @@ from . import models, schemas
 def get_name(db: Session, drug_N: Text):
     return db.query(models.Info).filter(models.Info.drug_N == drug_N).first()
 
+def get_from_warning(db: Session, reference_code: Integer):
+    return db.query(models.Warning).filter(models.Warning.reference_code == reference_code).first()
 
 # def get_user_by_email(db: Session, email: str):
 #     return db.query(models.User).filter(models.User.email == email).first()
