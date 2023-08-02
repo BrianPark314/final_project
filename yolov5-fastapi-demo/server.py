@@ -21,6 +21,8 @@ from itertools import combinations
 import torch
 import base64
 import random
+import json
+import ast
 
 root = os.path.dirname(os.path.abspath(__file__))
 
@@ -123,12 +125,14 @@ async def detect_with_server_side_rendering(request: Request,
     img_batch = [cv2.imdecode(np.fromstring(file.file.read(), np.uint8), cv2.IMREAD_COLOR)
                     for file in file_list]
     img_str_list, json_results_merged, encoded_json_results = inference(img_batch, img_size)
-    find_bad_combinations(json_results_merged)
+    bad_combinations = find_bad_combinations(json_results_merged)
 
     return templates.TemplateResponse('show_results.html', {
             'request': request,
-            'bbox_image_data_zipped': zip(img_str_list,json_results_merged), #unzipped in jinja2 template
+            'bbox_image_data_zipped': json_results_merged, #unzipped in jinja2 template
             'bbox_data_str': encoded_json_results,
+            'img_list':img_str_list,
+            'bad_combs': bad_combinations,
         })
 
 
@@ -195,11 +199,11 @@ def inference(img_batch, img_size):
         for bbox in bbox_list:
             label='test'
             label = f'{bbox["class_name"]}'
-            plot_one_box(bbox['bbox'], img, label=label, 
-                    line_thickness=3)
+            # plot_one_box(bbox['bbox'], img, label=label, line_thickness=3)
+            cropped_img = crop_by_bbox(bbox['bbox'], img)
+            img_str_list.append(base64EncodeImage(cropped_img))
 
-        img_str_list.append(base64EncodeImage(img))
-
+    print(np.shape(img))
     #color=colors[int(bbox['class'])]
     #escape the apostrophes in the json string representation
     encoded_json_results = str(json_results_merged).replace("'",r"\'").replace('"',r'\"')
@@ -214,10 +218,18 @@ def convert_to_int(string_code):
 def find_bad_combinations(json_results_merged):
     bad_combinations = []
     codes = [[convert_to_int(j['di_edi_code']) for j in json] for json in json_results_merged]
-    code_combinations = [combinations(code, 2) for code in codes if 0 not in code]
+    codes = [[52400581, 653400910, 52400730]]
+    code_combinations = [combinations(code, 2) for code in codes]
     for code_combs in list(code_combinations)[0]:
         if get_warning(list(code_combs)[0]) != None:
-            print(get_warning(list(code_combs)[0]).__dict__)
+            return_dict = get_warning(list(code_combs)[0]).__dict__
+            link_dict = dict(zip(json.loads(return_dict['code_matches']), ast.literal_eval(return_dict['info'])))
+            try:
+                bad_combinations.append(link_dict[list(code_combs)[1]])
+            except:
+                continue
+    
+    print(bad_combinations)
     return bad_combinations
 
 def results_to_json(results, model):
@@ -250,6 +262,10 @@ def plot_one_box(x, im, color=(128, 128, 128), label=None, line_thickness=3):
         cv2.rectangle(im, c1, c2, color, -1, cv2.LINE_AA)  # filled
 #        cv2.putText(im, label, (c1[0], c1[1]), 0, tl / 3, [225, 255, 255], thickness=tf, lineType=cv2.LINE_AA)
 
+def crop_by_bbox(bbox, im):
+    x, y, w, h = list(map(int, bbox))
+    assert im.data.contiguous, 'Image not contiguous. Apply np.ascontiguousarray(im) to plot_on_box() input image.'
+    return im[y:y+h, x:x+h]
 
 def base64EncodeImage(img):
     ''' Takes an input image and returns a base64 encoded string representation of that image (jpg format)'''
