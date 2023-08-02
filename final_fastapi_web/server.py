@@ -52,11 +52,6 @@ def camera(request: Request):
             "model_selection_options": model_selection_options,
         })
 
-# @app.get("/capture.html")
-# def capture(request: Request):
-#     return templates.TemplateResponse('capture.html', 
-#             {"request": request,
-#         })
 
 @app.get("/detect")
 def drag_and_drop_detect(request: Request):
@@ -122,19 +117,6 @@ async def detect_with_server_side_rendering(request: Request,
                         model_name: str = Form('best'),
                         img_size: int = Form(640)):
     
-    '''
-    Requires an image file upload, model name (ex. yolov5s). Optional image size parameter (Default 640).
-
-    Returns: HTML template render showing bbox data and base64 encoded image
-
-    Notes: 
-    Intended to show how to do server sided image rendering + passing to client. But
-    generally, you will just want to return results as JSON and do the rendering client side.
-    See templates/drag_and_drop_detect.html for an example on how to do this.
-
-    If you just want JSON results, just return the results of the 
-    results_to_json() function and skip the rest
-    '''
 
     model_dict[model_name] = torch.hub.load('ultralytics/yolov5', 'custom', path='./best.pt', force_reload=True) 
     img_batch = [cv2.imdecode(np.fromstring(file.file.read(), np.uint8), cv2.IMREAD_COLOR) for file in file_list]
@@ -160,12 +142,14 @@ async def detect_with_server_side_rendering(request: Request,
         })
 
 
+
+
+
 @app.post("/detect")
 def detect_via_api(request: Request,
                 file_list: List[UploadFile] = File(...), 
                 model_name: str = Form(...),
-                img_size: Optional[int] = Form(640),
-                download_image: Optional[bool] = Form(False)):
+                img_size: Optional[int] = Form(640)):
 
     model_dict[model_name] = torch.hub.load('ultralytics/yolov5', 'custom', path='./best.pt', force_reload=True) 
     img_batch = [cv2.imdecode(np.fromstring(file.file.read(), np.uint8), cv2.IMREAD_COLOR)
@@ -176,18 +160,22 @@ def detect_via_api(request: Request,
     results = model_dict[model_name](img_batch_rgb, size = img_size) 
     json_results = results_to_json(results,model_dict[model_name])
 
-    if download_image:
-        #server side render the image with bounding boxes
-        for idx, (img, bbox_list) in enumerate(zip(img_batch, json_results)):
-            for bbox in bbox_list:
-                label = f'{bbox["class_name"]} {bbox["confidence"]:.2f}'
-                plot_one_box(bbox['bbox'], img, label=label, color=colors[int(bbox['class'])], line_thickness=3)
+    img_str_list = []
+    for img, bbox_list in zip(img_batch, json_results):
+        for bbox in bbox_list:
+            label = f'{bbox["class_name"]} {bbox["confidence"]:.2f}'
+            plot_one_box(bbox['bbox'], img, label=label, 
+                    line_thickness=3)
 
-            payload = {'image_base64':base64EncodeImage(img)}
-            json_results[idx].append(payload)
+        img_str_list.append(base64EncodeImage(img))
+    encoded_json_results = str(json_results).replace("'",r"\'").replace('"',r'\"')
 
-    encoded_json_results = str(json_results).replace("'",r'"')
-    return encoded_json_results
+    # show_results(request, zip(img_str_list,json_results), encoded_json_results)
+    return templates.TemplateResponse('show_results.html', {
+            'request': request,
+            'bbox_image_data_zipped': zip(img_str_list,json_results), #unzipped in jinja2 template
+            'bbox_data_str': encoded_json_results,
+        })
     
     
     
