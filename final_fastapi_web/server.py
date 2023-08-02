@@ -62,7 +62,7 @@ def camera(request: Request):
 def drag_and_drop_detect(request: Request):
 
 
-    return templates.TemplateResponse('drag_and_drop_detect.html', 
+    return templates.TemplateResponse('upload.html', 
             {"request": request,
             "model_selection_options": model_selection_options,
         })

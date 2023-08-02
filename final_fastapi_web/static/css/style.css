@@ -91,7 +91,7 @@ body {
   margin: 0 auto;
 }
 
-.custom_nav-container.navbar-expand-lg .navbar-nav .nav-item .nav-link {
+.custom_nav-container.navbar-expand-lg .navbar-nav .nav-item .nav-link .navbar-dark bg-dark {
   margin: 10px 30px;
   padding: 0;
   color: #ffffff;
@@ -168,17 +168,6 @@ a:hover, a:focus {
   color: #ffffff;
   position: relative;
   z-index: 3;
-}
-
-.navbar-brand::before {
-  content: "";
-  position: absolute;
-  left: -10px;
-  bottom: 0;
-  width: 45px;
-  height: 45px;
-  background-color: #30ae69;
-  z-index: 2;
 }
 
 .custom_nav-container {
