@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    {% block title %}{% endblock %}
+    {% block header %}{% endblock %}
+
+    <!-- bootstrap core css -->
+    <link href="{{ url_for('static', path='./css/bootstrap.css') }}" rel="stylesheet">
+    <!-- slider stylesheet -->
+    <link href="{{ url_for('static', path='./css/style.css') }}" rel="stylesheet">
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', path='./css/style.css') }}" rel="stylesheet">
+    <!-- responsive style -->
+    <link href="{{ url_for('static', path='./css/responsive.css') }}" rel="stylesheet">
+
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand" href="">  뭔약이유? </a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"> 
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link" href="/camera">camera</a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link" href="/detect">Drag & Drop Detection</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/docs">Docs</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!--Other template content goes here-->
+  <main role="main" class="container"></main>
+    {% block content %}{% endblock %}
+  </main>
+
+</body>
+</html>
