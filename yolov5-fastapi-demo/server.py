@@ -203,7 +203,7 @@ def inference(img_batch, img_size):
             cropped_img = crop_by_bbox(bbox['bbox'], img)
             img_str_list.append(base64EncodeImage(cropped_img))
 
-    print(np.shape(img))
+    print(np.shape(img_str_list))
     #color=colors[int(bbox['class'])]
     #escape the apostrophes in the json string representation
     encoded_json_results = str(json_results_merged).replace("'",r"\'").replace('"',r'\"')
@@ -229,7 +229,6 @@ def find_bad_combinations(json_results_merged):
             except:
                 continue
     
-    print(bad_combinations)
     return bad_combinations
 
 def results_to_json(results, model):
@@ -290,3 +289,4 @@ if __name__ == '__main__':
     
     app_str = 'server:app' #make the app string equal to whatever the name of this file is
     uvicorn.run(app_str, host= '0.0.0.0', port=opt.port, reload=True)
+
