@@ -10,21 +10,30 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
+  <meta http-equiv="Cache-Control" content="no-chche,no-store,must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
 
   <title>F4 - 의약품 정보검색</title>
 
   <!-- slider stylesheet -->
   <link href="{{ url_for('static', path='./css/style.css') }}" rel="stylesheet">
+
   <!-- bootstrap core css -->
   <link href="{{ url_for('static', path='./css/bootstrap.css') }}" rel="stylesheet">
+
   <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+
   <!-- Custom styles for this template -->
-  <!-- <link href="{{ url_for('static', path='./css/style.css') }}" rel="stylesheet"> -->
+  <link href="{{ url_for('static', path='./css/style.css') }}" rel="stylesheet">
+
   <!-- responsive style -->
   <link href="{{ url_for('static', path='./css/responsive.css') }}" rel="stylesheet">
+
   <!-- fabicon -->
-  <link rel="shortcut icon" href="{{ url_for('static', path='./image/f4.ico') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ url_for('static', path='./images/f4.ico') }}" type="images/x-icon">
 </head>
 
 
@@ -84,7 +93,7 @@
                   </h2>
                   <div id="link-btn">
                     <div class="btn-box">
-                      <a href="{{ url_for('drag_and_drop_detect') }}">
+                      <a id="main_upload" href="{{ url_for('drag_and_drop_detect') }}">
                         사진 업로드
                       </a>
                     </div>
@@ -126,13 +135,13 @@
         </div>
         <div class="img-box">
           <div class="img1">
-            <img id="pills" src="{{ url_for('static', path='./image/pills.png') }}" alt="알약1">
+            <img id="pills" src="{{ url_for('static', path='./images/pills.png') }}" alt="알약1">
           </div>
           <div class="img2">
-            <img id="pills" src="{{ url_for('static', path='./image/pills2.png') }}" alt="알약2">
+            <img id="pills" src="{{ url_for('static', path='./images/pills2.png') }}" alt="알약2">
           </div>
           <div class="img3">
-            <img id="pills" src="{{ url_for('static', path='./image/pills3.png') }}" alt="알약3">
+            <img id="pills" src="{{ url_for('static', path='./images/pills3.png') }}" alt="알약3">
           </div>
         </div>
       </div>
@@ -151,7 +160,7 @@
         <div class="img-box">
           <div class="img-box">
             <div class="img2">
-              <img id="banned" src="{{ url_for('static', path='./image/no-pills.png') }}" alt="병용금기" width="190px" height="190px">
+              <img id="banned" src="{{ url_for('static', path='./images/no-pills.png') }}" alt="병용금기" width="190px" height="190px">
             </div>
           </div>
         </div> 
@@ -171,7 +180,7 @@
         <div class="img-box">
           <div class="img-box">
             <div class="img1">
-              <img id="pills" src="{{ url_for('static', path='./image/mediinfo.png') }}" alt="약물정보" width="190px" height="190px">
+              <img id="pills" src="{{ url_for('static', path='./images/mediinfo.png') }}" alt="약물정보" width="190px" height="190px">
             </div>
             </div>
           </div>
@@ -185,7 +194,7 @@
     <div class="picture_container">
       <!-- 화살표 -->
       <div class="centered-img">
-        <img src="{{ url_for('static', path='./image/down-arrow.png') }}" alt="사진 찍으러 가기" width="150" height="150">
+        <img src="{{ url_for('static', path='./images/down-arrow.png') }}" alt="사진 찍으러 가기" width="150" height="150">
       </div>
     </div>
     <div>
@@ -222,36 +231,36 @@
           <div class="img-box1">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./image/mediinfo.png') }}" alt="약물정보" width="190px" height="190px">
+                <img id="pills" src="{{ url_for('static', path='./images/mediinfo.png') }}" alt="업로드1" width="190px" height="190px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>설명1</p>
+            <p>Upload Images의 '파일 선택' 버튼을 누른 후<br>업로드할 사진을 개인 PC 환경에서 선택합니다.</p>
           </div>
         </div>
         <div class="box">
           <div class="img-box1">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./image/mediinfo.png') }}"alt="약물정보" width="190px" height="190px">
+                <img id="pills" src="{{ url_for('static', path='./images/mediinfo.png') }}"alt="업로드2" width="190px" height="190px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>설명2</p>
+            <p>YOLO Model의 최적 모형(best)이 선택된 것을 확인하고<br>파란색 Submit 버튼을 클릭합니다.</p>
           </div>
         </div>
         <div class="box">
           <div class="img-box1">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./image/mediinfo.png') }}" alt="약물정보" width="190px" height="190px">
+                <img id="pills" src="{{ url_for('static', path='./images/mediinfo.png') }}" alt="업로드3" width="190px" height="190px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>설명3</p>
+            <p>결과를 확인합니다.</p>
           </div>
         </div>
       </div>
@@ -265,36 +274,36 @@
           <div class="img-box1">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./image/mediinfo.png') }}" alt="약물정보" width="190px" height="190px">
+                <img id="pills" src="{{ url_for('static', path='./images/mediinfo.png') }}" alt="촬영1" width="190px" height="190px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>설명1</p>
+            <p>카메라가 켜지면 약품의 글씨가 쓰인 부분이 잘 보이도록 한 뒤<br>'사진 찍기' 버튼을 클릭합니다.</p>
           </div>
         </div>
         <div class="box">
           <div class="img-box1">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills"src="{{ url_for('static', path='./image/mediinfo.png') }}" alt="약물정보" width="190px" height="190px">
+                <img id="pills"src="{{ url_for('static', path='./images/mediinfo.png') }}" alt="촬영2" width="190px" height="190px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>설명2</p>
+            <p>우측 화면에 찍힌 사진을 확인하고 '사진 전송' 버튼을 클릭합니다.<br>다시 찍고 싶으면 '사진 찍기' 버튼을 다시 클릭합니다.</p>
           </div>
         </div>
         <div class="box">
           <div class="img-box1">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./image/mediinfo.png') }}" alt="약물정보" width="190px" height="190px">
+                <img id="pills" src="{{ url_for('static', path='./images/mediinfo.png') }}" alt="촬영3" width="190px" height="190px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>설명3</p>
+            <p>결과를 확인합니다.</p>
           </div>
         </div>
       </div>
@@ -315,7 +324,7 @@
         <div class="b-1">
           <div class="client_id">
             <div class="img-box">
-              <img src="{{ url_for('static', path='./image/client-1.jpg') }}" alt="박기영">
+              <img src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
             </div>
             <div class="name">
               <h5>
@@ -337,7 +346,7 @@
         <div class="b-1">
           <div class="client_id">
             <div class="img-box">
-              <img src="{{ url_for('static', path='./image/client-1.jpg') }}" alt="강호정">
+              <img src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="강호정">
             </div>
             <div class="name">
               <h5>
@@ -359,7 +368,7 @@
         <div class="b-1">
           <div class="client_id">
             <div class="img-box">
-              <img src="{{ url_for('static', path='./image/client-1.jpg') }}" alt="서덕원">
+              <img src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="서덕원">
             </div>
             <div class="name">
               <h5>
@@ -380,7 +389,7 @@
       <div class="box">
         <div class="client_id">
           <div class="img-box">
-            <img src="{{ url_for('static', path='./image/client-1.jpg') }}" alt="유준선">
+            <img src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="유준선">
           </div>
           <div class="name">
             <h5>
@@ -420,7 +429,7 @@
             </h5>
             <div>
               <div class="img-box">
-                <img src="{{ url_for('static', path='./image/github.png') }}" width="20px" alt="github" />
+                <img src="{{ url_for('static', path='./images/github.png') }}" width="20px" alt="github" />
               </div>
               <a href="https://github.com/BrianPark314/final_project">
                 https://github.com/BrianPark314/final_project
@@ -428,7 +437,7 @@
             </div>
             <div>
               <div class="img-box">
-                <img src="{{ url_for('static', path='./image/envelope.png') }}" width="20px" alt="e-mail" />
+                <img src="{{ url_for('static', path='./images/envelope.png') }}" width="20px" alt="e-mail" />
               </div>
               <p>
                 everfrost314@gmail.com

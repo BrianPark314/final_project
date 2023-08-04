@@ -12,7 +12,9 @@ from PIL import Image
 import io
 from datetime import datetime
 from sql_app.main import get_info, get_warning
+from fastapi.responses import HTMLResponse
 sys.path.insert(0, os.getcwd())
+
 
 import cv2
 import numpy as np
@@ -27,42 +29,40 @@ import ast
 root = os.path.dirname(os.path.abspath(__file__))
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 app.mount("/scripts", StaticFiles(directory=os.path.join(root, 'scripts')), name="js")
 templates = Jinja2Templates(directory = 'templates')
 
 DATETIME_FORMAT = "%Y-%m-%d_%H-%M-%S-%f"
 model_selection_options = ['best']
-#model_dict = {model_name: None for model_name in model_selection_options} #set up model cache
+model_dict = {model_name: None for model_name in model_selection_options} #set up model cache
 
 colors = [tuple([random.randint(0, 255) for _ in range(3)]) for _ in range(100)] #for bbox plotting
 
 ##############################################
 #-------------GET Request Routes--------------
 ##############################################
-@app.get("/")
-def home(request: Request):
-    ''' Returns html jinja2 template render for home page form
-    '''
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("main.html", {"request": request})
 
-    return templates.TemplateResponse('home.html', {
+
+@app.get("/camera")
+def camera(request: Request):
+    return templates.TemplateResponse('camera.html', {
             "request": request,
             "model_selection_options": model_selection_options,
         })
 
-@app.get("/capture.html")
-def capture(request: Request):
-    return templates.TemplateResponse('capture.html', 
-            {"request": request,
-        })
+# @app.get("/capture.html")
+# def capture(request: Request):
+#     return templates.TemplateResponse('capture.html', 
+#             {"request": request,
+#         })
 
-@app.get("/drag_and_drop_detect")
+@app.get("/detect")
 def drag_and_drop_detect(request: Request):
-    ''' drag_and_drop_detect detect page. Uses a drag and drop
-    file interface to upload files to the server, then renders 
-    the image + bboxes + labels on HTML canvas.
-    '''
-
-    return templates.TemplateResponse('drag_and_drop_detect.html', 
+    return templates.TemplateResponse('upload.html', 
             {"request": request,
             "model_selection_options": model_selection_options,
         })
@@ -105,26 +105,12 @@ async def save_img(request: Request,
     img_savename = img_savename.split('.')[0]
     return RedirectResponse(url=img_savename, status_code=status.HTTP_302_FOUND)
     
-@app.post("/")
+@app.post("/camera")
 async def detect_with_server_side_rendering(request: Request,
                         file_list: List[UploadFile] = File(...), 
                         model_name: str = Form('best'),
                         img_size: int = Form(640)):
     
-    '''
-    Requires an image file upload, model name (ex. yolov5s). Optional image size parameter (Default 640).
-
-    Returns: HTML template render showing bbox data and base64 encoded image
-
-    Notes: 
-    Intended to show how to do server sided image rendering + passing to client. But
-    generally, you will just want to return results as JSON and do the rendering client side.
-    See templates/drag_and_drop_detect.html for an example on how to do this.
-
-    If you just want JSON results, just return the results of the 
-    results_to_json() function and skip the rest
-    '''
-
     img_batch = [cv2.imdecode(np.fromstring(file.file.read(), np.uint8), cv2.IMREAD_COLOR)
                     for file in file_list]
     img_str_list, json_results_merged, encoded_json_results = inference(img_batch, img_size)
@@ -138,53 +124,37 @@ async def detect_with_server_side_rendering(request: Request,
             'img_list': zip(pill_names,img_str_list),
             'bad_combs': bad_combinations,
         })
-
-
+    
 @app.post("/detect")
 def detect_via_api(request: Request,
                 file_list: List[UploadFile] = File(...), 
                 model_name: str = Form(...),
-                img_size: Optional[int] = Form(640),
-                download_image: Optional[bool] = Form(False)):
-    
-    '''
-    Requires an image file upload, model name (ex. yolov5s). 
-    Optional image size parameter (Default 640)
-    Optional download_image parameter that includes base64 encoded image(s) with bbox's drawn in the json response
-    
-    Returns: JSON results of running YOLOv5 on the uploaded image. Bbox format is X1Y1X2Y2. 
-            If download_image parameter is True, images with
-            bboxes drawn are base64 encoded and returned inside the json response.
-
-    Intended for API usage.
-    '''
+                img_size: Optional[int] = Form(640)):
 
     model_dict[model_name] = torch.hub.load('ultralytics/yolov5', 'custom', path='./best.pt', force_reload=True) 
-
     img_batch = [cv2.imdecode(np.fromstring(file.file.read(), np.uint8), cv2.IMREAD_COLOR)
                 for file in file_list]
 
-    #create a copy that corrects for cv2.imdecode generating BGR images instead of RGB, 
-    #using cvtColor instead of [...,::-1] to keep array contiguous in RAM
     img_batch_rgb = [cv2.cvtColor(img, cv2.COLOR_BGR2RGB) for img in img_batch]
     
     results = model_dict[model_name](img_batch_rgb, size = img_size) 
     json_results = results_to_json(results,model_dict[model_name])
+    encoded_json_results = str(json_results).replace("'",r"\'").replace('"',r'\"')
 
-    if download_image:
-        #server side render the image with bounding boxes
-        for idx, (img, bbox_list) in enumerate(zip(img_batch, json_results)):
-            for bbox in bbox_list:
-                label = f'{bbox["drug_N"]} {bbox["confidence"]:.2f}'
-                plot_one_box(bbox['bbox'], img, label=label, 
-                        color=colors[int(bbox['class'])], line_thickness=3)
-
-            payload = {'image_base64':base64EncodeImage(img)}
-            json_results[idx].append(payload)
-
-    encoded_json_results = str(json_results).replace("'",r'"')
-    return encoded_json_results
+    img_str_list, json_results_merged, encoded_json_results = inference(img_batch, img_size)
     
+    bad_combinations = find_bad_combinations(json_results_merged)
+    pill_names = [j['dl_name'] for j in json_results_merged[0]]
+
+    return templates.TemplateResponse('show_results.html', {
+            'request': request,
+            'bbox_image_data_zipped': json_results_merged, #unzipped in jinja2 template
+            'bbox_data_str': encoded_json_results,
+            'img_list': zip(pill_names,img_str_list),
+            'bad_combs': bad_combinations,
+        })
+
+
 ##############################################
 #--------------Helper Functions---------------
 ##############################################
@@ -218,17 +188,18 @@ def convert_to_int(string_code): #im not at all proud of this code, but the non-
         try:
             return list(map(int, string_code))
         except:
-            return None
+            pass
     try:
         return [int(string_code)]
     except:
-        return None
+        return [9999999999]
     
 def find_bad_combinations(json_results_merged):
     bad_combinations = []
     names = [[j['dl_name'] for j in json] for json in json_results_merged]
 
     codes = [[convert_to_int(j['di_edi_code']) for j in json] for json in json_results_merged]
+    print(codes)
     codes = [list(chain.from_iterable(code)) for code in codes]
     codes_to_names = dict(zip(codes[0], names[0]))
     code_combinations = [combinations(code, 2) for code in codes]
@@ -301,4 +272,3 @@ if __name__ == '__main__':
     
     app_str = 'server:app' #make the app string equal to whatever the name of this file is
     uvicorn.run(app_str, host=opt.host, port=opt.port, reload=True)
-

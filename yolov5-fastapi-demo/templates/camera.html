@@ -8,9 +8,15 @@ Implements a simple Bootstrap 5 form submission interface for YOLOv5 detection.
 
 {% block content %}
 <div class="m-2">
-  <h5>사진을 찍어주세요.</h5>
-
-  <hr/>
+  <h5>사진을 찍어주세요</h5>
+  <div class="exp-camera">
+    <p>1) 사용하실 기기의 <strong>카메라 권한을 허용</strong>해주시고 전면 카메라가 작동할 때까지 기다려주세요.</p><br>
+    <p>2) 카메라가 작동되면 글씨가 적힌 <strong>약품의 앞면이 잘 보이도록</strong> 위치를 조정해주세요.</p><br>
+    <p>3) <strong>'사진 찍기' 버튼을 누른</strong> 후 화면 우측의 촬영된 사진을 확인해주세요.</p><br>
+    <p>4) <strong>'사진 전송' 버튼을 누르</strong>면 촬영한 기기에 이미지가 저장됩니다.</p><br>
+    <p>5) 좌측의 카메라를 보며 '사진 찍기' 버튼을 누르면 <strong>다시 촬영할 수 있습</strong>니다.</p><br>
+    <p>6) <strong>'전면 카메라' 버튼을 누르</strong>면 후면 카메라로 촬영할 수 있습니다.</p>
+  </div>
   <body>
     <!-- Main content of the HTML -->
     <main id="camera">
@@ -23,22 +29,22 @@ Implements a simple Bootstrap 5 form submission interface for YOLOv5 detection.
       <!-- Play the video streaming in "camera-view" -->
       <video id="camera-device" autoplay playsinline></video>
       <!-- Photo display -->
-      <img alt="" id="photo-display" />
+      <img alt="" id="photo-display" style="display: none;"/>
       </div>  
 
       <div id="camera-button" class="d-grid gap-2">
         <!-- Front camera button -->
-        <button id="front-camera-button" class="btn btn-secondary mx-4">
+        <button id="front-camera-button" class="btn btn-secondary mx-4 p-3">
           전면 카메라
         </button>
   
         <!-- Take photo button -->
-        <button id="take-photo-button" class="btn btn-primary mx-4">
+        <button id="take-photo-button" class="btn btn-primary mx-4 p-3">
           사진 찍기
         </button>
   
         <!-- Send photo button -->
-        <button id="send-photo-button" class="btn btn-primary mx-4">
+        <button id="send-photo-button" class="btn btn-primary mx-4 p-3">
           사진 전송
         </button>
       </div>
