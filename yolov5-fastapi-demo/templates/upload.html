@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %} <title>Do You Know What You Are Taking?</title> {% endblock %}
+
+{% block content %}
+<div class="m-2">
+  <h5>사진을 올려주세요</h5>
+
+  <hr/>
+  <form method="post" action="" enctype="multipart/form-data" id="drug-image-upload-form">
+    <div class="upload">
+      <div class="my-2">
+        <label for="file_list" class="form-label">Upload Images</label>
+        <input class="form-control w-auto" type="file" name="file_list" id="file_list" multiple>
+      </div>
+      <div class="my-2">
+        <div class="form-group">
+          <label>Select YOLO Model</label>
+        </div>
+        <select class="form-select w-auto" name="model_name">
+          {% for selection in model_selection_options %}
+            <option value="{{ selection }}">{{ selection }}</option>
+          {% endfor %}      
+        </select>
+      </div>
+      <div class="my-2">
+        <label for="img_size_input" class="form-label">Model Inference Size</label>
+        <input type="text" class="form-control w-auto" id="img_size_input" name="img_size" value="640">
+      </div>
+      <button class="btn btn-primary" type="submit" id="subbtn">Submit</button>
+    </div>
+  </form>
+</div>
+<script src="/scripts/upload.js"></script>
+{% endblock %}
