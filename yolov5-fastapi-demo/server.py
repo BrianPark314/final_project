@@ -218,17 +218,18 @@ def convert_to_int(string_code): #im not at all proud of this code, but the non-
         try:
             return list(map(int, string_code))
         except:
-            return None
+            pass
     try:
         return [int(string_code)]
     except:
-        return None
+        return [9999999999]
     
 def find_bad_combinations(json_results_merged):
     bad_combinations = []
     names = [[j['dl_name'] for j in json] for json in json_results_merged]
 
     codes = [[convert_to_int(j['di_edi_code']) for j in json] for json in json_results_merged]
+    print(codes)
     codes = [list(chain.from_iterable(code)) for code in codes]
     codes_to_names = dict(zip(codes[0], names[0]))
     code_combinations = [combinations(code, 2) for code in codes]
