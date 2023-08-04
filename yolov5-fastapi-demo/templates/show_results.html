@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!--Create button that calls the download() function above, use dummy iframe
+to stop the form from redirecting -->
+<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+<form onsubmit="download('results.json', '{{ bbox_data_str }}')" target="dummyframe">
+  <div class="d-flex">
+    <div class="d-inline-block ml-1 mr-3 py-1"><h2>분석 결과</h2></div>
+    <div class="d-inline-block mx-3 py-1"><input class="btn btn-primary" type="submit" value="Download Results"></div>
+  </div>
+</form>
+
+{% for bbox_list in bbox_image_data_zipped %}
+<table class="table">
+<thead>
+  <tr>
+    <th>이름</th>
+    <th>정확도</th>
+    <th>함유 성분</th>
+    <th>복용 방법</th>
+    <th>주의사항</th>
+    <th>주의 음식</th>
+    <th>효과</th>
+    <th>부작용</th>
+
+  </tr>
+</thead>
+  {% for bbox in bbox_list %}
+    <tr>
+      <td>{{ bbox['dl_name'] }}</td>
+      <td>{{ bbox['confidence'] }}</td>
+      <td>{{ bbox['dl_material'] }}</td>
+      <td>{{ bbox['instructions'] }}</td>
+      <td>{{ bbox['caution'] }}</td>
+      <td>{{ bbox['caution_food'] }}</td>
+      <td>{{ bbox['effects'] }}</td>
+      <td>{{ bbox['side_effects'] }}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+{% endfor %}
+{% for img_name, img_base64 in img_list%}
+<!--Display base64 encoded image, scale image so it fits browser window horizontally -->
+  <div class="container">
+    <a>{{ img_name }}</a>
+    <img src="data:image/png;charset=utf-8;base64,{{ img_base64 }}" id="result_image" style="max-width: 100%;height: auto;width: auto\9;"/>
+  </div>
+{% endfor %}
+<hr/>
+
+
+{% for comb in bad_combs%}
+  <table class="table">
+    <thread>
+      <tr>
+        <td>{{comb[0]}}와(과) {{comb[1]}}을(를) 혼용하면 {{comb[2]}}이(가) 나타날 수 있습니다.</td>
+      </tr>
+    </thread>
+  </table>
+{% endfor %}
+<script>
+  // from https://stackoverflow.com/questions/3665115/how-to-create-a-file-in-memory-for-user-to-download-but-not-through-server/18197341#18197341
+  function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
+</script>
+
+
+{% endblock %}
