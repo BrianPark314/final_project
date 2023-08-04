@@ -12,7 +12,7 @@ from PIL import Image
 import io
 from datetime import datetime
 from sql_app.main import get_info, get_warning
-sys.path.insert(0, '/Users/Shark/Projects/final_project/yolov5-fastapi-demo')
+sys.path.insert(0, os.getcwd())
 
 import cv2
 import numpy as np
@@ -78,12 +78,15 @@ def show_results(request:Request,
     img_batch  = [cv2.imdecode(np.fromstring(data, np.uint8), cv2.IMREAD_COLOR)]
     img_str_list, json_results_merged, encoded_json_results = inference(img_batch, img_size)
     
-    find_bad_combinations(json_results_merged)
+    bad_combinations = find_bad_combinations(json_results_merged)
+    pill_names = [j['dl_name'] for j in json_results_merged[0]]
 
     return templates.TemplateResponse('show_results.html', {
             'request': request,
-            'bbox_image_data_zipped': zip(img_str_list,json_results_merged), #unzipped in jinja2 template
+            'bbox_image_data_zipped': json_results_merged, #unzipped in jinja2 template
             'bbox_data_str': encoded_json_results,
+            'img_list': zip(pill_names,img_str_list),
+            'bad_combs': bad_combinations,
         })
 
 
@@ -204,7 +207,6 @@ def inference(img_batch, img_size):
             cropped_img = crop_by_bbox(bbox['bbox'], img)
             img_str_list.append(base64EncodeImage(cropped_img))
 
-    print(np.shape(img_str_list))
     #color=colors[int(bbox['class'])]
     #escape the apostrophes in the json string representation
     encoded_json_results = str(json_results_merged).replace("'",r"\'").replace('"',r'\"')
@@ -225,7 +227,7 @@ def convert_to_int(string_code): #im not at all proud of this code, but the non-
 def find_bad_combinations(json_results_merged):
     bad_combinations = []
     names = [[j['dl_name'] for j in json] for json in json_results_merged]
-    print(names)
+
     codes = [[convert_to_int(j['di_edi_code']) for j in json] for json in json_results_merged]
     codes = [list(chain.from_iterable(code)) for code in codes]
     codes_to_names = dict(zip(codes[0], names[0]))
@@ -238,7 +240,7 @@ def find_bad_combinations(json_results_merged):
                 bad_combinations.append([codes_to_names[code_combs[0]], codes_to_names[code_combs[1]], link_dict[list(code_combs)[1]]])
             except:
                 continue
-    print(bad_combinations)
+
     return bad_combinations
 
 def results_to_json(results, model):
@@ -298,5 +300,5 @@ if __name__ == '__main__':
                         for model_name in model_selection_options}
     
     app_str = 'server:app' #make the app string equal to whatever the name of this file is
-    uvicorn.run(app_str, host= '0.0.0.0', port=opt.port, reload=True)
+    uvicorn.run(app_str, host=opt.host, port=opt.port, reload=True)
 

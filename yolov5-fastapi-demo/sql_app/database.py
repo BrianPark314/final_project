@@ -1,8 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import os
 
-SQLALCHEMY_DATABASE_URL = "sqlite:////Users/Shark/Projects/final_project/yolov5-fastapi-demo/sql_app/db/pill_data.db" #set db url
+BASE_PATH = os.getcwd()
+
+SQLALCHEMY_DATABASE_URL = f"sqlite:///{BASE_PATH}/sql_app/db/pill_data.db" #set db url
 # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
 engine = create_engine(
