@@ -12,16 +12,21 @@ def resize_image(path, pad = args.im_padding):
     path_list = sorted(glob(str(path / '*.png')))
     label_info = pd.read_csv(args.data_path / 'db/annotations.csv')
     for paths in path_list:
-        for i in range(len(label_info)):
-            file_name = str(paths).split('\\')[-1].split('.')[0]
-            if label_info['file_name'][i] == str(paths):
-                img = cv2.imread(str(paths))
-                img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX)
-                img = cv2.resize(img, dsize=(0, 0), fx=0.5, fy=0.5, interpolation=cv2.INTER_LINEAR)
-                x, y, w, h = json.loads(label_info['bbox'][i])
-                img = img[(y//2)-pad:(y//2)+(h//2)+pad, 
-                        (x//2)-pad:(x//2)+(w//2)+pad]
-                cv2.imwrite(str(args.data_path / f'processed/{file_name}'), img)
+        file_name = str(paths).split('\\')[-1].split('.')[0]
+        # for i in range(len(label_info)):
+        # if label_info[label_info['file_name'] == str(paths).split('\\')[-1]]:
+        # if label_info['file_name'][i] == str(paths).split('\\')[-1]:
+        img = cv2.imread(str(paths))
+        img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX)
+        img = cv2.resize(img, dsize=(0, 0), fx=0.5, fy=0.5, interpolation=cv2.INTER_LINEAR)
+        x,y,w,h = json.loads(label_info[label_info['file_name']==str(paths).split('\\')[-1]]['bbox'].values[0])
+        # x, y, w, h = json.loads(label_info['bbox'][i])
+        img = img[(y//2)-pad:(y//2)+(h//2)+pad, 
+            (x//2)-pad:(x//2)+(w//2)+pad]
+        # cv2.imwrite(f'{str(args.data_path)}/processed/{file_name}.png', img)
+        cv2.imwrite(f'{str(path)}/{file_name}.png', img)
+                
+                
     # for i, img_path in enumerate(path_list):
     #     _, file_name = os.path.split(img_path)
     #     if file_name != label_info.iloc[i]['file_name']:

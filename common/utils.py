@@ -9,9 +9,9 @@ import yaml
 import pandas as pd
 from pathlib import Path
 import gc
-import splitfolders
+import shutil
 from glob import glob
-
+import subprocess
 
 def timeit(func):
     @wraps(func)
@@ -41,22 +41,18 @@ def create_dirs(data_path, path_list):
     os.makedirs(data_path /'db', exist_ok=True)
     for paths in path_list:
         os.makedirs(paths /'data/db', exist_ok=True)
-        os.makedirs(paths /'images', exist_ok=True)
-        os.makedirs(paths /'labels', exist_ok=True) 
+        # os.makedirs(paths /'images', exiㅁst_ok=True)
+        # os.makedirs(paths /'labels', exist_ok=True) 
 
 @timeit
 def unzip(zip_path, unzip_path):
+    if unzip_path.exists() and unzip_path.is_dir():
+        shutil.rmtree(unzip_path)
     os.makedirs(unzip_path, exist_ok=True)
-    path_list = zip_path.rglob('*.zip')
-    for paths in (path_list):
-        with zipfile.ZipFile(paths, 'r') as zip_ref:
-            print('in')
-            zip_ref.extractall(unzip_path)
-        os.remove(str(paths))
+    subprocess.run(['bash', './common/scripts/unzip.sh', str(zip_path), str(unzip_path) ])
 
 @timeit
 def parse_json(path):
-    print('in!')
     code_list = []
     annotations_list = []
     json_path = path.rglob('*.json')
@@ -78,7 +74,6 @@ def move_image(ori_path, move_path):
         #file_name = str(paths).split('/')[-1]
         _, file_name = os.path.split(paths)
         os.replace(str(paths), str(move_path)+f'/images/{file_name}')
-    os.rmdir(ori_path)
 
 @timeit
 def create_label_files(path, pad = args.im_padding):
@@ -92,7 +87,3 @@ def create_label_files(path, pad = args.im_padding):
         result = ' '.join(map(str, [label_dict[row['dl_mapping_code']], x, y, w, h]))
         with open(path / f'{file_name}.txt', 'w') as f:
             f.write(result)
-
-@timeit
-def split_label_image(path):
-    splitfolders.ratio(str(path),output = str(path) / 'final_data',seed=1337,ratio=(.8,.2))
