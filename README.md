@@ -98,6 +98,13 @@ issue : label 110만개 이상 생성시 속도 저하현상발생
 
 try5: 110만개씩 끊어서 label 생성 
 
+issue : 이미지 및 라벨 데이터 180만개 학습 시도시 colab gpu cuda out of memory 발생
+try6 : 이미지 데이터 라벨당 200개씩 비율 맞춰 42만개로 개수 줄여줌
+
+issue : 배치사이즈 128,64 시도시 colab gpu cuda out of memory 발생
+issue : yaml 파일 그대로 사용하여 학습시도시 학습률0% 발생
+try7 : 이미지 라벨 새로추출 및 yaml 재생성 후 학습 시도, 배치사이즈 32까지줄여서 학습 진행
+
 
 - 데이터 용량 줄이기 시도
 main issue : unzip -> crop -> GCS 과정에 데이터 크기가 여전히 압도적으로 큼 
