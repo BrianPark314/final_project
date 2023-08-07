@@ -2,6 +2,9 @@ body {
     font-family: 'IBM Plex Sans KR', sans-serif;
     color: #000000;
     background-color: #ffffff;
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
   
   .layout_padding {
@@ -352,8 +355,8 @@ body {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     height: 200px;
     background-color: #f6f5f7;
   }
@@ -730,6 +733,14 @@ body {
     text-align: center; /* Center the text within the label if needed */
   }
   
+
+  .header_upload {
+    text-align: center;
+    font-size:40px;
+    height:40px;
+  }
+
+
   /* Style for the image */
   .image-container img {
     max-width: 100%;
@@ -738,7 +749,35 @@ body {
   }
   
   
+#upload_menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* align-items: center;  */
+    height: 60vh;
+    width: 1700px;
+  }
+  .menu {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 600px;
+    width: 900px;
+    flex-direction: column;
+    font-size: 20px;
+  }
+
+
+  .centered-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+    
   
+
+  
+
   /* camera.html */
   #camera {
     margin-top: 60px;
@@ -762,24 +801,21 @@ body {
   }
   
   .exp-camera {
-    margin: 0 30px;
+    margin: 0 10px;
+    font-size: 20px;
   }
   
   #file_list {
     margin: 0;
-  }
-  
-  .m-2 p {
-    margin: 0 20px;
     font-size: 20px;
   }
-  
-  .m-2 .upload {
-    margin: 30px 40px;
+  .best {
+    font-size :20px;
   }
-  
+
   .my-2 {
-    margin: 15px 15px;
+    margin: 20px 20px;
+    font-size: 30px;
   }
   
   .form-group {
@@ -787,7 +823,9 @@ body {
   }
   
   #subbtn {
-    margin-left: 15px;
+    margin-left: 20px;
+    /* text-align: center; */
+    font-size: 20px
   }
   
   #front-camera-button {
