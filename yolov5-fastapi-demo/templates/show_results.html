@@ -12,15 +12,15 @@ to stop the form from redirecting -->
   </div>
 </form>
 
-
-{% for img_name, img_base64 in img_list%}
-  <div class="image-container">
-    <a>{{ img_name }}</a>
-    <img src="data:image/png;charset=utf-8;base64,{{ img_base64 }}" id="result_image" style="max-width: 100%;height: auto;width: auto\9;"/>
-  </div>
-{% endfor %}
+<div class="res-img">
+  {% for img_name, img_base64 in img_list%}
+    <div class="image-container">
+      <a>{{ img_name }}</a>
+      <img src="data:image/png;charset=utf-8;base64,{{ img_base64 }}" id="result_image" style="max-width: 100%;height: auto;width: auto\9;"/>
+    </div>
+  {% endfor %}
+</div>
 <hr/>
-
 
 {% for comb in bad_combs%}
   <table class="table">

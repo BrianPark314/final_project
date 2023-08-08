@@ -483,7 +483,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 250px;
-    width: 415px;
+    width: 400px;
     background-color: #f6f5f7;
     border-radius: 0px;
   }
@@ -496,10 +496,13 @@ body {
     -ms-flex-pack: center;
     justify-content: center;
     align-items: center;
-    margin: 15px 0;
+    margin: 50px 0;
     font-weight: 600;
   }
   
+  .exp {
+    font-size: 20px;
+  }
   .about_container .detail-box div h3 {
     margin-bottom: 40px;
   }
@@ -790,15 +793,6 @@ body {
   }
 
   
-
-  /* camera.html */
-  /* #photo-display{
-    width:3
-  } */
-
-
-
-  
   #camera {
     margin-top: 60px;
   }
@@ -859,4 +853,41 @@ body {
   
   #take-photo-button {
     margin: 0 50px;
+  }
+
+
+  .res-img {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .boxxxxx {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  .role{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .pname p {
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    font-size: 20px;
+  }
+
+
+  .pname {
+    margin-top: 15px;
+    font-weight: 600;
+  }
+
+  #nname{
+    width: 350px;
+    height :200px;
   }

@@ -314,75 +314,118 @@
 
   <!-- '만든 사람들' section starts -->
   <section class="client_section layout_padding-bottom">
-    <div class="container">
-      <div class="heading_container">
-        <h2 id="who">
+    <div class="heading_container">
+      <h2 id="who">
           만든 사람들
-        </h2>
-      </div>
-      <div class="box">
-        <div class="b-1">
-          <div class="client_id">
-            <div class="img-box">
-              <img src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
-            </div>
-            <div class="name">
-              <h5>
-                박기영
-              </h5>
-              <h6>
-                조장
-              </h6>
+      </h2>
+    </div>
+
+    <div class="boxxxxx">
+      <div class="boxx">
+        <div class="img-box1">
+          <div class="img-box2">
+            <div class="img1">
+              <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
             </div>
           </div>
         </div>
-        <div class="client_detail">
+        <div class="pname">
           <p>- 개발 및 기획 총괄</p><br>
           <p>- 데이터 파이프라인 구축</p><br>
           <p>- 백엔드(main)</p>
         </div>
       </div>
-      <div class="box">
-        <div class="b-1">
-          <div class="client_id">
-            <div class="img-box">
-              <img src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="강호정">
-            </div>
-            <div class="name">
-              <h5>
-                강호정
-              </h5>
+      <div class="boxx">
+        <div class="img-box1">
+          <div class="img-box2">
+            <div class="img1">
+              <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
             </div>
           </div>
         </div>
-        <div class="client_detail">
+        <div class="pname">
           <p>- 이미지 전처리(sub)</p><br>
           <p>- 메인 및 외부 데이터 전처리</p><br>
           <p>- 백엔드(sub)</p>
         </div>
       </div>
-      <div class="box">
-        <div class="b-1">
-          <div class="client_id">
-            <div class="img-box">
-              <img src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="서덕원">
-            </div>
-            <div class="name">
-              <h5>
-                서덕원
-              </h5>
+      <div class="boxx">
+        <div class="img-box1">
+          <div class="img-box2">
+            <div class="img1">
+              <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
             </div>
           </div>
         </div>
-        <div class="client_detail">
+        <div class="pname">
+          <p>- 모델 학습</p><br>
           <p>- 모델 엔지니어링</p><br>
           <p>- 이미지 전처리(main)</p>
+
         </div>
       </div>
-      <div class="box">
+      <div class="boxx">
+        <div class="img-box1">
+          <div class="img-box2">
+            <div class="img1">
+              <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
+            </div>
+          </div>
+        </div>
+        <div class="pname">
+          <p>- 프론트엔드</p><br>
+          <p>- 데이터 전처리</p><br>
+          <p>- 자료 조사</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- end who made it section -->
+
+
+    <!-- <div class="boxxxxx">
+      <div class="b-1">
         <div class="client_id">
           <div class="img-box">
-            <img src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="유준선">
+            <img id='nname' src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
+          </div>
+          <div class="name">
+            <h5>
+              박기영(조장)
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="b-1">
+        <div class="client_id">
+          <div class="img-box">
+            <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="강호정">
+          </div>
+          <div class="name">
+            <h5>
+              강호정
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="b-1">
+        <div class="client_id">
+          <div class="img-box">
+            <img id='nname' src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="서덕원">
+          </div>
+          <div class="name">
+            <h5>
+              서덕원
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="b-1">
+        <div class="client_id">
+          <div class="img-box">
+            <img id='nname' src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="유준선">
           </div>
           <div class="name">
             <h5>
@@ -390,14 +433,50 @@
             </h5>
           </div>
         </div>
-        <div class="client_detail">
-          <p>- 프론트엔드</p><br>
-          <p>- 데이터 전처리</p>
-        </div>
       </div>
     </div>
-  </section>
-  <!-- end who made it section -->
+
+
+
+    <div class = 'role'>
+      <div class="client_detail">
+          <p>- 개발 및 기획 총괄</p><br>
+          <p>- 데이터 파이프라인 구축</p><br>
+          <p>- 백엔드(main)</p>
+      </div>
+        
+      <div class="client_detail">
+        <p>- 이미지 전처리(sub)</p><br>
+        <p>- 메인 및 외부 데이터 전처리</p><br>
+        <p>- 백엔드(sub)</p>
+      </div>
+        
+      <div class="client_detail">
+        <p>- 모델 엔지니어링</p><br>
+        <p>- 이미지 전처리(main)</p>
+      </div>
+      
+      <div class="client_detail">
+        <p>- 프론트엔드</p><br>
+        <p>- 데이터 전처리</p>
+      </div>
+    </div> -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   <!-- info section starts -->
