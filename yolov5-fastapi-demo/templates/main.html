@@ -228,39 +228,39 @@
       </div>
       <div class="box_container">
         <div class="box">
-          <div class="img-box1">
+          <div class="img-upload">
             <div class="img-box2">
-              <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/upload1.png') }}" alt="업로드1" width="350px" height="250px">
+              <div class="img1" >
+                <img id="pills" src="{{ url_for('static', path='./images/upload1.png') }}" alt="업로드1" width="430px" height="250px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>Upload Images의 '파일 선택' 버튼을 누른 후<br>업로드할 사진을 개인 PC 환경에서 선택합니다.</p>
+            <p>1. Upload Images의 '파일 선택' 버튼을 누른 후<br>업로드할 사진을 개인 PC 환경에서 선택합니다.</p>
           </div>
         </div>
         <div class="box">
-          <div class="img-box1">
+          <div class="img-upload2">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/upload2.png') }}"alt="업로드2" width="350px" height="250px">
+                <img id="pills" src="{{ url_for('static', path='./images/upload2.png') }}"alt="업로드2" width="250px" height="250px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>YOLO Model의 최적 모형(best)이 선택된 것을 확인하고<br>파란색 Submit 버튼을 클릭합니다.</p>
+            <p>2. YOLO Model의 최적 모형(best)이 선택된 것을 확인하고<br>파란색 Submit 버튼을 클릭합니다.</p>
           </div>
         </div>
         <div class="box">
-          <div class="img-box1">
+          <div class="img-upload3">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/upload3.png') }}" alt="업로드3" width="350px" height="250px">
+                <img id="pills" src="{{ url_for('static', path='./images/upload3.png') }}" alt="업로드3" width="625px" height="250px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>결과를 확인합니다.</p>
+            <p>3. 결과를 확인합니다.</p>
           </div>
         </div>
       </div>
@@ -271,39 +271,39 @@
       </div>
       <div class="box_container">
         <div class="box">
-          <div class="img-box1">
+          <div class="img-result1">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/camera.png') }}" alt="촬영1" width="350px" height="250px">
+                <img id="pills" src="{{ url_for('static', path='./images/camera.png') }}" alt="촬영1" width="430px" height="250px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>카메라가 켜지면 약품의 글씨가 쓰인 부분이 잘 보이도록 한 뒤<br>'사진 찍기' 버튼을 클릭합니다.</p>
+            <p>1. 카메라가 켜지면 약품의 글씨가 쓰인 부분이 잘 보이도록 한 뒤 '사진 찍기' 버튼을 클릭합니다.</p>
           </div>
         </div>
         <div class="box">
-          <div class="img-box1">
+          <div class="img-result2">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills"src="{{ url_for('static', path='./images/camera3.png') }}" alt="촬영2" width="350px" height="250px">
+                <img id="pills"src="{{ url_for('static', path='./images/camera2.png') }}" alt="촬영2" width="690px" height="250px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>우측 화면에 찍힌 사진을 확인하고 '사진 전송' 버튼을 클릭합니다.<br>다시 찍고 싶으면 '사진 찍기' 버튼을 다시 클릭합니다.</p>
+            <p>2. 우측 화면에 찍힌 사진을 확인하고 '사진 전송' 버튼을 클릭합니다.<br>다시 찍고 싶으면 '사진 찍기' 버튼을 다시 클릭합니다.</p>
           </div>
         </div>
         <div class="box">
-          <div class="img-box1">
+          <div class="img-result3">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/upload3.png') }}" alt="촬영3" width="350px" height="250px">
+                <img id="pills" src="{{ url_for('static', path='./images/upload3.png') }}" alt="촬영3" width="625px" height="250px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>결과를 확인합니다.</p>
+            <p>3. 결과를 확인합니다.</p>
           </div>
         </div>
       </div>
@@ -324,6 +324,9 @@
       <div class="boxx">
         <div class="img-box1">
           <div class="img-box2">
+            <h5>
+              박기영(조장)
+            </h5>
             <div class="img1">
               <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
             </div>
@@ -338,6 +341,9 @@
       <div class="boxx">
         <div class="img-box1">
           <div class="img-box2">
+            <h5>
+              강호정
+            </h5>
             <div class="img1">
               <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
             </div>
@@ -346,12 +352,15 @@
         <div class="pname">
           <p>- 이미지 전처리(sub)</p><br>
           <p>- 메인 및 외부 데이터 전처리</p><br>
-          <p>- 백엔드(sub)</p>
+          <p>- 백엔드(sub) , 프론트앤드(sub)</p>
         </div>
       </div>
       <div class="boxx">
         <div class="img-box1">
           <div class="img-box2">
+            <h5>
+              서덕원
+            </h5>
             <div class="img1">
               <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
             </div>
@@ -367,6 +376,9 @@
       <div class="boxx">
         <div class="img-box1">
           <div class="img-box2">
+            <h5>
+              유준선
+            </h5>
             <div class="img1">
               <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
             </div>

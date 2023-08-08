@@ -482,12 +482,43 @@ body {
     -ms-flex-pack: center;
     justify-content: center;
     align-items: center;
-    height: 250px;
-    width: 400px;
+    /* height: 250px;
+    width: 300px; */
     background-color: #f6f5f7;
     border-radius: 0px;
   }
   
+
+  .img-upload1{
+    height :250px;
+    width : 430px
+  }
+
+  .img-upload2{
+    height :250px;
+    width : 250px
+  }
+
+  .img-upload3 .img-result3{
+    height :250px;
+    width : 625px
+  }
+
+  .img-result1{
+    height :250px;
+    width : 430px
+  }
+
+  .img-result2{
+    height :250px;
+    width : 690px
+  }
+
+  
+
+
+
+
   .about_container .box_container .box .exp {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -891,3 +922,5 @@ body {
     width: 350px;
     height :200px;
   }
+
+  
