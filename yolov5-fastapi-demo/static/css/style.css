@@ -97,7 +97,7 @@ body {
   .custom_nav-container.navbar-expand-lg .navbar-nav .nav-item .nav-link .navbar-dark bg-dark {
     width: 100%;
     margin: 10px 30px;
-    padding: 15px 0;
+    /* padding: 15px 0; */
     color: #ffffff;
     text-align: center;
     position: relative;
@@ -196,9 +196,7 @@ body {
   }
   
   .custom_nav-container {
-    z-index: 99999;
-    padding: 15px 0;
-  }
+    z-index: 99999;}
   
   .custom_nav-container .navbar-toggler {
     outline: none;
@@ -765,11 +763,14 @@ body {
     justify-content: center;
     align-items: flex-start;
     /* height: 600px; */
-    width: 40%;
+    width: 50%;
     flex-direction: column;
     font-size: 20px;
   }
 
+  .box {
+    margin: 10px 0;
+      }
 
   .centered-form {
     display: flex;
@@ -836,9 +837,9 @@ body {
   }
   
   #subbtn {
-    margin-left: 20px;
+    margin-left: 30px;
     /* text-align: center; */
-    font-size: 20px
+    font-size: 30px
   }
   
   #front-camera-button {
