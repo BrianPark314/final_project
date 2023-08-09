@@ -44,7 +44,7 @@ to stop the form from redirecting -->
 {% endfor %}
 {% for img_name, img_base64 in img_list%}
 <!--Display base64 encoded image, scale image so it fits browser window horizontally -->
-  <div class="container">
+  <div class="image-container">
     <a>{{ img_name }}</a>
     <img src="data:image/png;charset=utf-8;base64,{{ img_base64 }}" id="result_image" style="max-width: 100%;height: auto;width: auto\9;"/>
   </div>
