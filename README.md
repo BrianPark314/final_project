@@ -4,7 +4,7 @@
 
 ## 팀원 주요 역할
 - 박기영 : module화 , model 성능 개선 , image download and preprocessing 자동화 process 관리 , backend  
-- 강호정 : image 전처리 , 외부 정보 관리 및 전처리 , backend  
+- 강호정 : image 전처리 , 외부 정보 관리 및 전처리 , backend  ,frontend(sub)
 - 서덕원 : model 성능 개선 , image 전처리 , model 학습 
 - 유준선 : frontend , json data -> csv 변환 , data전처리
 
@@ -117,4 +117,5 @@ issue : 서비스는 구현 되었으나 frontend 와 연결 과정에서 서버
 try3 : flask를 활용해 image upload detection  , caputre and detection 부분 구현성공 
 issue : 4차 멘토링을 통한 피드백으로 fast api가 더 좋겠다는 평가를 받음 
 try4 : fast api를 활용해 backend 구현 (camera capture detection , image upload detedction)
-issue : 요청받은 이미지를 fetch로 전달하는 과정에서 get이 안되는 issue 발생 (~로 해결)
+issue : 요청받은 이미지를 fetch로 전달하는 과정에서 get이 안되는 issue 발생 (code수정완료)
+try5 : frontend 수정 및 docker 환경에서 실행 가능 하도록 구현 

@@ -3,33 +3,59 @@
 {% block title %} <title>Do You Know What You Are Taking?</title> {% endblock %}
 
 {% block content %}
-<div class="m-2">
-  <h5>사진을 올려주세요</h5>
-
-  <hr/>
-  <form method="post" action="" enctype="multipart/form-data" id="drug-image-upload-form">
+<h5 class="header_upload">사진을 올려주세요</h5>
+<div id="upload_menu" class="m-2">
+  <div class="menu">
+    <div class="box">
+      <p>1) <strong>"파일 선택" </strong>버튼을 클릭하고 PC에서 분류하고자 하는 의약품 사진을 선택합니다.</p><br>
+      <div class="img-box1">
+        <div class="img-box2">
+          <div class="img1">
+            <img id="pills" src="{{ url_for('static', path='./images/upload1.png') }}"alt="업로드" width="400px" height="200px">
+          </div>
+        </div>
+      </div>
+      <div class="exp"></div>
+    </div>
+    <div class="box">
+      <p>2) <strong>"결과보기" </strong>버튼을 클릭하면 결과 페이지로 이동합니다(10초정도 소요)</p><br>
+      <div class="img-box1">
+        <div class="img-box2">
+          <div class="img1">
+            <img id="pills" src="{{ url_for('static', path='./images/upload2.png') }}"alt="업로드" width="400px" height="200px">
+          </div>
+        </div>
+      </div>
+      <div class="exp"></div>
+    </div>
+  </div>
+  
+  <form class="centered-form" method="post" action="" enctype="multipart/form-data" id="drug-image-upload-form">
     <div class="upload">
       <div class="my-2">
-        <label for="file_list" class="form-label">Upload Images</label>
+        <label for="file_list" class="form-label">이미지 업로드</label>
         <input class="form-control w-auto" type="file" name="file_list" id="file_list" multiple>
       </div>
       <div class="my-2">
         <div class="form-group">
-          <label>Select YOLO Model</label>
+          <label>모델 선택</label>
         </div>
+        <div class="best">
         <select class="form-select w-auto" name="model_name">
           {% for selection in model_selection_options %}
-            <option value="{{ selection }}">{{ selection }}</option>
-          {% endfor %}      
+          <option value="{{ selection }}">{{ selection }}</option>
+          {% endfor %}
         </select>
+        </div>
       </div>
       <div class="my-2">
-        <label for="img_size_input" class="form-label">Model Inference Size</label>
+        <label for="img_size_input" class="form-label">이미지 사이즈</label>
         <input type="text" class="form-control w-auto" id="img_size_input" name="img_size" value="640">
       </div>
-      <button class="btn btn-primary" type="submit" id="subbtn">Submit</button>
+      <button class="btn btn-primary" type="submit" id="subbtn">결과 보기</button>
     </div>
   </form>
 </div>
+
 <script src="/scripts/upload.js"></script>
 {% endblock %}

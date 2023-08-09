@@ -18,7 +18,7 @@
   <title>F4 - 의약품 정보검색</title>
 
   <!-- slider stylesheet -->
-  <link href="{{ url_for('static', path='./css/style.css') }}" rel="stylesheet">
+  <!-- <link href="{{ url_for('static', path='./css/style.css') }}" rel="stylesheet"> -->
 
   <!-- bootstrap core css -->
   <link href="{{ url_for('static', path='./css/bootstrap.css') }}" rel="stylesheet">
@@ -228,39 +228,39 @@
       </div>
       <div class="box_container">
         <div class="box">
-          <div class="img-box1">
+          <div class="img-upload">
             <div class="img-box2">
-              <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/mediinfo.png') }}" alt="업로드1" width="190px" height="190px">
+              <div class="img1" >
+                <img id="pills" src="{{ url_for('static', path='./images/upload1.png') }}" alt="업로드1" width="430px" height="250px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>Upload Images의 '파일 선택' 버튼을 누른 후<br>업로드할 사진을 개인 PC 환경에서 선택합니다.</p>
+            <p>1. Upload Images의 '파일 선택' 버튼을 누른 후<br>업로드할 사진을 개인 PC 환경에서 선택합니다.</p>
           </div>
         </div>
         <div class="box">
-          <div class="img-box1">
+          <div class="img-upload2">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/mediinfo.png') }}"alt="업로드2" width="190px" height="190px">
+                <img id="pills" src="{{ url_for('static', path='./images/upload2.png') }}"alt="업로드2" width="250px" height="250px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>YOLO Model의 최적 모형(best)이 선택된 것을 확인하고<br>파란색 Submit 버튼을 클릭합니다.</p>
+            <p>2. YOLO Model의 최적 모형(best)이 선택된 것을 확인하고<br>파란색 Submit 버튼을 클릭합니다.</p>
           </div>
         </div>
         <div class="box">
-          <div class="img-box1">
+          <div class="img-upload3">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/mediinfo.png') }}" alt="업로드3" width="190px" height="190px">
+                <img id="pills" src="{{ url_for('static', path='./images/upload3.png') }}" alt="업로드3" width="625px" height="250px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>결과를 확인합니다.</p>
+            <p>3. 결과를 확인합니다.</p>
           </div>
         </div>
       </div>
@@ -271,39 +271,39 @@
       </div>
       <div class="box_container">
         <div class="box">
-          <div class="img-box1">
+          <div class="img-result1">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/mediinfo.png') }}" alt="촬영1" width="190px" height="190px">
+                <img id="pills" src="{{ url_for('static', path='./images/camera.png') }}" alt="촬영1" width="430px" height="250px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>카메라가 켜지면 약품의 글씨가 쓰인 부분이 잘 보이도록 한 뒤<br>'사진 찍기' 버튼을 클릭합니다.</p>
+            <p>1. 카메라가 켜지면 약품의 글씨가 쓰인 부분이 잘 보이도록 한 뒤 '사진 찍기' 버튼을 클릭합니다.</p>
           </div>
         </div>
         <div class="box">
-          <div class="img-box1">
+          <div class="img-result2">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills"src="{{ url_for('static', path='./images/mediinfo.png') }}" alt="촬영2" width="190px" height="190px">
+                <img id="pills"src="{{ url_for('static', path='./images/camera2.png') }}" alt="촬영2" width="690px" height="250px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>우측 화면에 찍힌 사진을 확인하고 '사진 전송' 버튼을 클릭합니다.<br>다시 찍고 싶으면 '사진 찍기' 버튼을 다시 클릭합니다.</p>
+            <p>2. 우측 화면에 찍힌 사진을 확인하고 '사진 전송' 버튼을 클릭합니다.<br>다시 찍고 싶으면 '사진 찍기' 버튼을 다시 클릭합니다.</p>
           </div>
         </div>
         <div class="box">
-          <div class="img-box1">
+          <div class="img-result3">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/mediinfo.png') }}" alt="촬영3" width="190px" height="190px">
+                <img id="pills" src="{{ url_for('static', path='./images/upload3.png') }}" alt="촬영3" width="625px" height="250px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>결과를 확인합니다.</p>
+            <p>3. 결과를 확인합니다.</p>
           </div>
         </div>
       </div>
@@ -314,101 +314,181 @@
 
   <!-- '만든 사람들' section starts -->
   <section class="client_section layout_padding-bottom">
-    <div class="container">
-      <div class="heading_container">
-        <h2 id="who">
+    <div class="heading_container">
+      <h2 id="who">
           만든 사람들
-        </h2>
-      </div>
-      <div class="box">
-        <div class="b-1">
-          <div class="client_id">
-            <div class="img-box">
-              <img src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
-            </div>
-            <div class="name">
-              <h5>
-                박기영
-              </h5>
-              <h6>
-                조장
-              </h6>
+      </h2>
+    </div>
+
+    <div class="boxxxxx">
+      <div class="boxx">
+        <div class="img-box1">
+          <div class="img-box2">
+            <h5>
+              박기영(조장)
+            </h5>
+            <div class="img1">
+              <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
             </div>
           </div>
         </div>
-        <div class="client_detail">
-          <p>
-            세부 역할 ~~~
-          </p>
+        <div class="pname">
+          <p>- 개발 및 기획 총괄</p><br>
+          <p>- 데이터 파이프라인 구축</p><br>
+          <p>- 백엔드(main)</p>
         </div>
       </div>
-      <div class="box">
-        <div class="b-1">
-          <div class="client_id">
-            <div class="img-box">
-              <img src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="강호정">
-            </div>
-            <div class="name">
-              <h5>
-                강호정
-              </h5>
-              <h6>
-                blabla
-              </h6>
+      <div class="boxx">
+        <div class="img-box1">
+          <div class="img-box2">
+            <h5>
+              강호정
+            </h5>
+            <div class="img1">
+              <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
             </div>
           </div>
         </div>
-        <div class="client_detail">
-          <p>
-            세부 역할 ~~~
-          </p>
+        <div class="pname">
+          <p>- 이미지 전처리(sub)</p><br>
+          <p>- 메인 및 외부 데이터 전처리</p><br>
+          <p>- 백엔드(sub) , 프론트앤드(sub)</p>
         </div>
       </div>
-      <div class="box">
-        <div class="b-1">
-          <div class="client_id">
-            <div class="img-box">
-              <img src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="서덕원">
-            </div>
-            <div class="name">
-              <h5>
-                서덕원
-              </h5>
-              <h6>
-                blabla
-              </h6>
+      <div class="boxx">
+        <div class="img-box1">
+          <div class="img-box2">
+            <h5>
+              서덕원
+            </h5>
+            <div class="img1">
+              <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
             </div>
           </div>
         </div>
-        <div class="client_detail">
-          <p>
-            세부 역할 ~~~
-          </p>
+        <div class="pname">
+          <p>- 모델 학습</p><br>
+          <p>- 모델 엔지니어링</p><br>
+          <p>- 이미지 전처리(main)</p>
+
         </div>
       </div>
-      <div class="box">
+      <div class="boxx">
+        <div class="img-box1">
+          <div class="img-box2">
+            <h5>
+              유준선
+            </h5>
+            <div class="img1">
+              <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
+            </div>
+          </div>
+        </div>
+        <div class="pname">
+          <p>- 프론트엔드</p><br>
+          <p>- 데이터 전처리</p><br>
+          <p>- 자료 조사</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- end who made it section -->
+
+
+    <!-- <div class="boxxxxx">
+      <div class="b-1">
         <div class="client_id">
           <div class="img-box">
-            <img src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="유준선">
+            <img id='nname' src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
+          </div>
+          <div class="name">
+            <h5>
+              박기영(조장)
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="b-1">
+        <div class="client_id">
+          <div class="img-box">
+            <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="강호정">
+          </div>
+          <div class="name">
+            <h5>
+              강호정
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="b-1">
+        <div class="client_id">
+          <div class="img-box">
+            <img id='nname' src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="서덕원">
+          </div>
+          <div class="name">
+            <h5>
+              서덕원
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="b-1">
+        <div class="client_id">
+          <div class="img-box">
+            <img id='nname' src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="유준선">
           </div>
           <div class="name">
             <h5>
               유준선
             </h5>
-            <h6>
-              blabla
-            </h6>
           </div>
-        </div>
-        <div class="client_detail">
-          <p>
-            세부 역할 ~~~
-          </p>
         </div>
       </div>
     </div>
-  </section>
-  <!-- end who made it section -->
+
+
+
+    <div class = 'role'>
+      <div class="client_detail">
+          <p>- 개발 및 기획 총괄</p><br>
+          <p>- 데이터 파이프라인 구축</p><br>
+          <p>- 백엔드(main)</p>
+      </div>
+        
+      <div class="client_detail">
+        <p>- 이미지 전처리(sub)</p><br>
+        <p>- 메인 및 외부 데이터 전처리</p><br>
+        <p>- 백엔드(sub)</p>
+      </div>
+        
+      <div class="client_detail">
+        <p>- 모델 엔지니어링</p><br>
+        <p>- 이미지 전처리(main)</p>
+      </div>
+      
+      <div class="client_detail">
+        <p>- 프론트엔드</p><br>
+        <p>- 데이터 전처리</p>
+      </div>
+    </div> -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   <!-- info section starts -->
@@ -455,12 +535,47 @@
             <ul>
               <li>
                 <a href="">
-                  There are many
+                  python
                 </a>
               </li>
               <li>
                 <a href="">
-                  suffered
+                  html,css,javascripts
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  html,css,javascripts
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  yolov5
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  SQLite
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  FastAPI
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  Docker
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  Bash
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  colab
                 </a>
               </li>
             </ul>
@@ -476,7 +591,9 @@
                 <a href="https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=576">
                   AI Hub 경구약제 이미지 데이터
                 </a>
-                <p>한국의약품안전관리원 - 병용금기 성분리스트_230301.xlsx</p>
+                <p>한국의약품안전관리원 - 병용금기 성분리스트</p>
+                <p>한국의약품안전관리원 - 병용주의 성분리스트</p>
+                <p>식품의약품 안전나라 - e약은요</p>
               </li>
             </ul>
           </div>
