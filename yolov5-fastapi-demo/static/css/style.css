@@ -712,7 +712,37 @@ body {
     margin-bottom: 20px;
   }
   
+  /* #container {
+    display: flex;
+    justify-content: space-around;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+    margin-bottom: 20px;
+  } */
+
+  .image-container {
+    display: inline-block; /* or flex */
+    margin-right: 10px; /* Adjust the right margin to add spacing between images */
+    vertical-align: top; /* Align the containers to the top */
+  }
   
+  /* Style for the label (the 'a' tag) */
+  .image-container a {
+    display: block; /* Display the label as a block to take full width */
+    text-align: center; /* Center the text within the label if needed */
+  }
+  
+  /* Style for the image */
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* For IE9 support */
+  }
+  
+  
+  
+  
+
+
+
   /* camera.html */
   #camera {
     margin-top: 60px;
