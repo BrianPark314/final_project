@@ -36,7 +36,6 @@
   <link rel="shortcut icon" href="{{ url_for('static', path='./images/f4.ico') }}" type="images/x-icon">
 </head>
 
-
 <body>
   <!-- header section starts -->
   <header class="header_section">
@@ -214,6 +213,81 @@
 
 
   <!-- '이용 방법' section starts -->
+   <!-- slider section -->
+  <!-- <section class=" slider_section position-relative">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="container">
+            <div class="box">
+              <div class="row">
+                <div class="detail-box">
+                  <div id='nav-immg'>
+                    <h2>
+                      1. Upload Images의 '파일 선택' 버튼을 누른 후<br>업로드할 사진을 개인 PC 환경에서 선택합니다
+                    </h2>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="img-box">
+                    <img src="{{ url_for('static', path='./images/upload1.png') }}" alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="container">
+            <div class="box">
+              <div class="row">
+                <div class="detail-box">
+                  <div id='nav-immg'>
+                    <h2>
+                      YOLO Model의 최적 모형(best)이 선택된 것을 확인하고<br>파란색 결과 보기 버튼을 클릭합니다.
+                    </h2>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="img-box">
+                    <img src="{{ url_for('static', path='./images/upload2.png') }}" alt="" width="50px" height="50px"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="container">
+            <div class="box">
+              <div class="row">
+                <div class="detail-box">
+                  <div id='nav-immg'>
+                    <h2>
+                      결과를 확인합니다.
+                    </h2>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="img-box">
+                    <img src="{{ url_for('static', path='./images/upload3.png') }}" alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+  <!-- end slider section -->
+
+
   <section class="about_section layout_padding-bottom">
     <div class="heading_container">
       <h2 id="how">
@@ -231,7 +305,7 @@
           <div class="img-upload">
             <div class="img-box2">
               <div class="img1" >
-                <img id="pills" src="{{ url_for('static', path='./images/upload1.png') }}" alt="업로드1" width="305px" height="180px">
+                <img id="pills" src="{{ url_for('static', path='./images/upload1.png') }}" alt="업로드1" width="238px" height="140px">
               </div>
             </div>
           </div>
@@ -243,19 +317,19 @@
           <div class="img-upload2">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/upload2.png') }}"alt="업로드2" width="180px" height="180px">
+                <img id="pills" src="{{ url_for('static', path='./images/upload2.png') }}"alt="업로드2" width="140px" height="140px">
               </div>
             </div>
           </div>
           <div class="exp">
-            <p>2. YOLO Model의 최적 모형(best)이 선택된 것을 확인하고<br>파란색 Submit 버튼을 클릭합니다.</p>
+            <p>2. YOLO Model의 최적 모형(best)이 선택된 것을 확인하고<br>파란색 결과 보기 버튼을 클릭합니다.</p>
           </div>
         </div>
         <div class="box">
           <div class="img-upload3">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/upload3.png') }}" alt="업로드3" width="450px" height="180px">
+                <img id="pills" src="{{ url_for('static', path='./images/upload3.png') }}" alt="업로드3" width="350px" height="140px">
               </div>
             </div>
           </div>
@@ -274,7 +348,7 @@
           <div class="img-result1">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/camera.png') }}" alt="촬영1" width="270px" height="160px">
+                <img id="pills" src="{{ url_for('static', path='./images/camera.png') }}" alt="촬영1" width="230px" height="140px">
               </div>
             </div>
           </div>
@@ -286,7 +360,7 @@
           <div class="img-result2">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills"src="{{ url_for('static', path='./images/camera2.png') }}" alt="촬영2" width="390px" height="160px">
+                <img id="pills"src="{{ url_for('static', path='./images/camera2.png') }}" alt="촬영2" width="340px" height="140px">
               </div>
             </div>
           </div>
@@ -298,7 +372,7 @@
           <div class="img-result3">
             <div class="img-box2">
               <div class="img1">
-                <img id="pills" src="{{ url_for('static', path='./images/upload3.png') }}" alt="촬영3" width="400px" height="160px">
+                <img id="pills" src="{{ url_for('static', path='./images/upload3.png') }}" alt="촬영3" width="350px" height="140px">
               </div>
             </div>
           </div>
@@ -308,7 +382,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> 
   <!-- end how it works section -->
 
 
@@ -328,7 +402,7 @@
               박기영(조장)
             </h5>
             <div class="img1">
-              <img id="nname" src="{{ url_for('static', path='./images/client-1.jpg') }}" alt="박기영">
+              <img id="nname" src="{{ url_for('static', path='./images/park.jpeg') }}" alt="박기영" , width="180px" height="180px">
             </div>
           </div>
         </div>
@@ -525,7 +599,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">  <!-- 여백 생성 -->
+        <div class="col-md">  <!-- 여백 생성 -->
         </div>
         <div class="col-md-3">
           <div class="info_links">
