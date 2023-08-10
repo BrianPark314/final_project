@@ -875,7 +875,7 @@ body {
   #subbtn {
     margin-left: 30px;
     /* text-align: center; */
-    font-size: 30px
+    font-size: 25px
   }
   
   #front-camera-button {
@@ -928,7 +928,7 @@ body {
   }
 
   
-=======
+
 body {
     font-family: 'IBM Plex Sans KR', sans-serif;
     color: #000000;
@@ -1164,6 +1164,7 @@ body {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    justify-content: space-between;
   }
   
   .slider_section .detail-box h1 {
@@ -1228,7 +1229,7 @@ body {
   }
   
   .slider_section .img-box img {
-    width: 100px
+    width: 100px;
     height: 100px
   }
   
@@ -1250,12 +1251,7 @@ body {
     border: 4px solid #ffffff;
   }
   
-  /* .carousel-item.active .container {
-    margin-right: 60px;
-    padding-right: 60px;
-  } */
   
-  /* end slider section */
   
   
   /* how section (what we made) */
@@ -1723,6 +1719,7 @@ body {
   
   #subbtn {
     margin-left: 15px;
+    font-size: 20px;
   }
   
   #front-camera-button {
@@ -1737,11 +1734,3 @@ body {
     margin: 0 50px;
   }
 
-  .col-md{
-    flex: 0 0 20%;
-    max-width: 20%;
-  }
-
-  #nav-immg{
-    font-size: 10px;
-  }
