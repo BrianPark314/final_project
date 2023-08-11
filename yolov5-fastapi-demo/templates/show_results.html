@@ -12,8 +12,45 @@ to stop the form from redirecting -->
   </div>
 </form>
 
+<div class="res-img">
+  {% for img_name, img_base64 in img_list%}
+    <div class="image-container">
+      <a>{{ img_name }}</a>
+      <img src="data:image/png;charset=utf-8;base64,{{ img_base64 }}" id="result_image" style="max-width: 100%;height: auto;width: auto\9;"/>
+    </div>
+  {% endfor %}
+</div>
+<hr/>
+
+{% for comb in bad_combs%}
+  <table class="table">
+    <thread>
+      <tr>
+        <td><span style="background-color: yellow;">{{comb[0]}}</span>와(과) <span style="background-color: yellow;">{{comb[1]}}</span>을(를) 혼용하면 <span style="font-weight: bold;"><span style="color:red">{{comb[2]}}</span></span>이(가) 나타날 수 있습니다.</td>
+      </tr>
+    </thread>
+  </table>
+
+  
+{% endfor %}
+<script>
+  // from https://stackoverflow.com/questions/3665115/how-to-create-a-file-in-memory-for-user-to-download-but-not-through-server/18197341#18197341
+  function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
+</script>
+
 {% for bbox_list in bbox_image_data_zipped %}
-<table class="table">
+<table class="table" style='table-layout:fixed;word-break:break-all;height:auto'>
 <thead>
   <tr>
     <th>이름</th>
@@ -40,11 +77,11 @@ to stop the form from redirecting -->
     </tr>
   {% endfor %}
 </table>
-
 {% endfor %}
+
 {% for img_name, img_base64 in img_list%}
 <!--Display base64 encoded image, scale image so it fits browser window horizontally -->
-  <div class="container">
+  <div class="image-container">
     <a>{{ img_name }}</a>
     <img src="data:image/png;charset=utf-8;base64,{{ img_base64 }}" id="result_image" style="max-width: 100%;height: auto;width: auto\9;"/>
   </div>
@@ -52,7 +89,7 @@ to stop the form from redirecting -->
 <hr/>
 
 
-{% for comb in bad_combs%}
+<!-- {% for comb in bad_combs%}
   <table class="table">
     <thread>
       <tr>
@@ -60,7 +97,7 @@ to stop the form from redirecting -->
       </tr>
     </thread>
   </table>
-{% endfor %}
+{% endfor %} -->
 <script>
   // from https://stackoverflow.com/questions/3665115/how-to-create-a-file-in-memory-for-user-to-download-but-not-through-server/18197341#18197341
   function download(filename, text) {
@@ -76,6 +113,5 @@ to stop the form from redirecting -->
     document.body.removeChild(element);
   }
 </script>
-
 
 {% endblock %}

@@ -592,6 +592,7 @@
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
+
   }
   
   .no-gutters {
@@ -1001,7 +1002,7 @@
       flex-basis: 0;
       -ms-flex-positive: 1;
       flex-grow: 1;
-      max-width: 100%;
+      max-width: 20%;
     }
     .col-md-auto {
       -ms-flex: 0 0 auto;
@@ -1020,9 +1021,9 @@
       max-width: 16.666667%;
     }
     .col-md-3 {
-      -ms-flex: 0 0 25%;
-      flex: 0 0 25%;
-      max-width: 25%;
+      -ms-flex: 0 0 20%;
+      flex: 0 0 20%;
+      max-width: 20%;
     }
     .col-md-4 {
       -ms-flex: 0 0 33.333333%;
@@ -6578,7 +6579,7 @@
   }
   
   .bg-dark {
-    background-color: #343a40 !important;
+    background-color: #000000 !important;
   }
   
   a.bg-dark:hover, a.bg-dark:focus,
