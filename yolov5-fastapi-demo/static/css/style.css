@@ -379,10 +379,12 @@ body {
   }
   
   .how_section .how_container .box .detail-box {
+    font-size: 13px;
     margin-top: 15px;
   }
   
   .how_section .how_container .box .detail-box h4 {
+    font-size: 16px;
     font-weight: bold;
     position: relative;
   }
@@ -485,6 +487,7 @@ body {
     align-items: center;
     /* height: 250px;
     width: 300px; */
+    height: auto;
     background-color: #f6f5f7;
     border-radius: 0px;
   }
@@ -1289,6 +1292,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    height:auto
   }
   
   .how_section .how_container .box .img-box .img2 {
