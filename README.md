@@ -1,3 +1,16 @@
+<style>
+  .button {
+  background-color: #555555; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+</style>
+
 <div align=center><h1>ENCORE PLAYDATA FINAL PROJECT</h1>
  <h3>딥러닝 기반 경구약제 이미지 인식 및 정보 제공 서비스</h3>
 </div>
@@ -32,6 +45,11 @@
   <img src="https://img.shields.io/badge/sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white"> 
   <img src="https://img.shields.io/badge/yolov5-00FFFF?style=for-the-badge&logo=yolo&logoColor=white">
 </div>
+
+<div align=center><h2>INTRODUCTION TO PRODUCT</h2>
+  <button href="https://www.canva.com/design/DAFqcupnsGU/9FgB-cWTKufkZOWAvJNH9g/view?utm_content=DAFqcupnsGU&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" class="button">Link to Presentation</button>
+</div>
+
 
 
 ## 주제 설명 
@@ -148,3 +166,4 @@ issue : 4차 멘토링을 통한 피드백으로 fast api가 더 좋겠다는 �
 try4 : fast api를 활용해 backend 구현 (camera capture detection , image upload detedction)
 issue : 요청받은 이미지를 fetch로 전달하는 과정에서 get이 안되는 issue 발생 (code수정완료)
 try5 : frontend 수정 및 docker 환경에서 실행 가능 하도록 구현 
+
