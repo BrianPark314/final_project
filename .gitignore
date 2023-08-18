@@ -16,3 +16,4 @@ volov5
 venvs
 *.csv
 *.db
+*.DS_Store

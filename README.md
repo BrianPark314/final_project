@@ -1,16 +1,3 @@
-<style>
-  .button {
-  background-color: #555555; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
-</style>
-
 <div align=center><h1>ENCORE PLAYDATA FINAL PROJECT</h1>
  <h3>딥러닝 기반 경구약제 이미지 인식 및 정보 제공 서비스</h3>
 </div>
