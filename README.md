@@ -1,16 +1,38 @@
-## boot camp final project(경구약 이미지 인식을 통한 의약품 복용 관리 서비스)
-#### 팀명 : f4 
-#### 팀원 : 박기영 강호정 유준선 서덕원
+<div align=center><h1>ENCORE PLAYDATA FINAL PROJECT</h1>
+ <h3>딥러닝 기반 경구약제 이미지 인식 및 정보 제공 서비스</h3>
+</div>
 
-## 팀원 주요 역할
-- 박기영 : module화 , model 성능 개선 , image download and preprocessing 자동화 process 관리 , backend  
-- 강호정 : image 전처리 , 외부 정보 관리 및 전처리 , backend  ,frontend(sub)
-- 서덕원 : model 성능 개선 , image 전처리 , model 학습 
-- 유준선 : frontend , json data -> csv 변환 , data전처리
+<div align=center><h2>TEAM F4</h2></div>
+<div align=center><h3>박기영 강호정 서덕원 유준선</h2>
 
-### 사용 skill 및 데이터셋
-- skill : python , shell code , fast api , dbvear , Gcs , colab , html , javascirpts , css , torch ~~ 
-- dataset : 경구약제 5000종 이미지 데이터(4.4TB , 출처:AI hub) , 함께 복용 금지,주의 data(출처 :공공 데이터 포털) , e약은요 (출처 : )
+  박기영(팀장) <br>
+  개발 및 기획 총괄, 데이터 파이프라인 구축, 벡엔드(main)backend <br>
+  강호정 <br>
+  image 전처리 , 외부 정보 관리 및 전처리 , backend  ,frontend(sub) <br>
+  서덕원 <br>
+  model 성능 개선 , image 전처리 , model 학습 <br>
+  유준선 <br>
+  frontend , json data -> csv 변환 , data전처리
+
+</div>
+
+<div align=center><h2>📚 STACKS</h2></div>
+
+<div align=center> 
+  <img src="https://img.shields.io/badge/fastapi-009688?style=for-the-badge&logo=fastapi&logoColor=white"> 
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+  <img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
+  <img src="https://img.shields.io/badge/js-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> 
+  <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=black"> 
+  <img src="https://img.shields.io/badge/bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=black"> 
+  <br>
+  
+  <img src="https://img.shields.io/badge/google Cloud-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white"> 
+  <img src="https://img.shields.io/badge/google colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white"> 
+  <img src="https://img.shields.io/badge/sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white"> 
+  <img src="https://img.shields.io/badge/yolov5-00FFFF?style=for-the-badge&logo=yolo&logoColor=white">
+</div>
+
 
 ## 주제 설명 
 ### 선정 배경 
